@@ -27,4 +27,6 @@ Generates counts from a normal distribution density function.
 \examples{
 # Tokars (2018) vaccinations
 generate_counts(1e6, 304, 0.55, 100, 50)
+# Tokars (2018) cases
+generate_counts(1e6, 304, 0.12, 190, 35)
 }
