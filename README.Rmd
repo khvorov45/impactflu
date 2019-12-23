@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![Build Status](https://travis-ci.org/khvorov45/impactflu.svg?branch=master)](https://travis-ci.org/khvorov45/impactflu)
+[![codecov](https://codecov.io/gh/khvorov45/impactflu/branch/master/graph/badge.svg)](https://codecov.io/gh/khvorov45/impactflu)
 <!-- badges: end -->
 
 The goal of impactflu is to provide functions to analyse the impact of 
