@@ -10,6 +10,7 @@
 #' @param cases_novac Number of cases at every timepoint
 #' @param ve Vaccine effectiveness
 #' @param lag Lag period measured in timepoints
+#' @param seed Integer seed to use
 #'
 #' @return A \link[tibble]{tibble} with the following columns:
 #' \item{timepoint}{Index of timepoint}
@@ -22,9 +23,13 @@ sim_ideal <- function(init_pop_size,
                       vaccinations,
                       cases_novac,
                       ve,
-                      lag) {
-  sim_ideal_cpp(init_pop_size, vaccinations, cases_novac, ve, lag) %>%
-    as_tibble()
+                      lag,
+                      seed = sample.int(.Machine$integer.max, 1)) {
+  ideal_pop <- sim_ideal_cpp(init_pop_size, vaccinations, cases_novac, ve, lag)
+  attr(ideal_pop, "seed") <- seed
+  attr(ideal_pop, "init_pop_size") <- init_pop_size
+  attr(ideal_pop, "lag") <- lag
+  as_tibble(ideal_pop)
 }
 
 #' Generate normal counts

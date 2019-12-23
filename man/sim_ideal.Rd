@@ -4,7 +4,14 @@
 \alias{sim_ideal}
 \title{Simulate an ideal population}
 \usage{
-sim_ideal(init_pop_size, vaccinations, cases_novac, ve, lag)
+sim_ideal(
+  init_pop_size,
+  vaccinations,
+  cases_novac,
+  ve,
+  lag,
+  seed = sample.int(.Machine$integer.max, 1)
+)
 }
 \arguments{
 \item{init_pop_size}{Inital population size}
@@ -16,6 +23,8 @@ sim_ideal(init_pop_size, vaccinations, cases_novac, ve, lag)
 \item{ve}{Vaccine effectiveness}
 
 \item{lag}{Lag period measured in timepoints}
+
+\item{seed}{Integer seed to use}
 }
 \value{
 A \link[tibble]{tibble} with the following columns:
