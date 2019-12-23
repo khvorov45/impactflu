@@ -28,8 +28,14 @@ sim_ideal(
 }
 \value{
 A \link[tibble]{tibble} with the following columns:
-\item{timepoint}{Index of timepoint}
+  \item{timepoint}{Index of timepoint}
 }
 \description{
-Simulate an ideal population
+Simulates an ideal population using the reference model from Tokars (2018).
+}
+\references{
+Tokars JI, Rolfes MA, Foppa IM, Reed C. An evaluation and update
+  of methods for estimating the number of influenza cases averted by
+  vaccination in the United States. Vaccine. 2018;36(48):7331–7337.
+  doi:10.1016/j.vaccine.2018.10.026
 }

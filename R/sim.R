@@ -5,6 +5,8 @@
 
 #' Simulate an ideal population
 #'
+#' Simulates an ideal population using the reference model from Tokars (2018).
+#'
 #' @param init_pop_size Inital population size
 #' @param vaccinations Number of vaccinations at every timepoint
 #' @param cases_novac Number of cases at every timepoint
@@ -13,7 +15,12 @@
 #' @param seed Integer seed to use
 #'
 #' @return A \link[tibble]{tibble} with the following columns:
-#' \item{timepoint}{Index of timepoint}
+#'   \item{timepoint}{Index of timepoint}
+#'
+#' @references Tokars JI, Rolfes MA, Foppa IM, Reed C. An evaluation and update
+#'   of methods for estimating the number of influenza cases averted by
+#'   vaccination in the United States. Vaccine. 2018;36(48):7331–7337.
+#'   doi:10.1016/j.vaccine.2018.10.026
 #'
 #' @importFrom magrittr %>%
 #' @importFrom tibble as_tibble
