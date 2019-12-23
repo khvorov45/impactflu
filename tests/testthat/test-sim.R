@@ -4,9 +4,11 @@
 # Last edit 2019/12/24
 
 test_that("count generation works", {
+  set.seed(1)
   test_counts <- generate_counts(
     init_pop_size = 1e6, n_timepoints = 304,
     overall_prop = 0.55, mean = 100, sd = 50
   )
   expect_equal(length(test_counts), 304)
+  expect_equal(sum(test_counts) / 1e6, 0.55, tol = 0.01)
 })
