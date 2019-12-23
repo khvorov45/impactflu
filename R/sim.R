@@ -47,6 +47,8 @@ sim_ideal <- function(init_pop_size,
 #' @examples
 #' # Tokars (2018) vaccinations
 #' generate_counts(1e6, 304, 0.55, 100, 50)
+#' # Tokars (2018) cases
+#' generate_counts(1e6, 304, 0.12, 190, 35)
 generate_counts <- function(init_pop_size, n_timepoints,
                             overall_prop, mean, sd) {
   densities <- dnorm(1:n_timepoints, mean, sd)
