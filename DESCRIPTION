@@ -14,3 +14,7 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.6.0)
 RoxygenNote: 7.0.2
+LinkingTo: 
+    Rcpp
+Imports: 
+    Rcpp
