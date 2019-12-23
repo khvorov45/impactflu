@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![Build
+Status](https://travis-ci.org/khvorov45/impactflu.svg?branch=master)](https://travis-ci.org/khvorov45/impactflu)
 <!-- badges: end -->
 
 The goal of impactflu is to provide functions to analyse the impact of
