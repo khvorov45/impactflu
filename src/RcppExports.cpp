@@ -6,8 +6,8 @@
 using namespace Rcpp;
 
 // sim_ideal_cpp
-DataFrame sim_ideal_cpp(const int& init_pop_size, const IntegerVector& vaccinations, const IntegerVector& cases_novac, const NumericVector& ve, const int& lag);
-RcppExport SEXP _impactflu_sim_ideal_cpp(SEXP init_pop_sizeSEXP, SEXP vaccinationsSEXP, SEXP cases_novacSEXP, SEXP veSEXP, SEXP lagSEXP) {
+DataFrame sim_ideal_cpp(const int& init_pop_size, const IntegerVector& vaccinations, const IntegerVector& cases_novac, const NumericVector& ve, const int& lag, bool deterministic);
+RcppExport SEXP _impactflu_sim_ideal_cpp(SEXP init_pop_sizeSEXP, SEXP vaccinationsSEXP, SEXP cases_novacSEXP, SEXP veSEXP, SEXP lagSEXP, SEXP deterministicSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -16,13 +16,14 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const IntegerVector& >::type cases_novac(cases_novacSEXP);
     Rcpp::traits::input_parameter< const NumericVector& >::type ve(veSEXP);
     Rcpp::traits::input_parameter< const int& >::type lag(lagSEXP);
-    rcpp_result_gen = Rcpp::wrap(sim_ideal_cpp(init_pop_size, vaccinations, cases_novac, ve, lag));
+    Rcpp::traits::input_parameter< bool >::type deterministic(deterministicSEXP);
+    rcpp_result_gen = Rcpp::wrap(sim_ideal_cpp(init_pop_size, vaccinations, cases_novac, ve, lag, deterministic));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_impactflu_sim_ideal_cpp", (DL_FUNC) &_impactflu_sim_ideal_cpp, 5},
+    {"_impactflu_sim_ideal_cpp", (DL_FUNC) &_impactflu_sim_ideal_cpp, 6},
     {NULL, NULL, 0}
 };
 

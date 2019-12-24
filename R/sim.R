@@ -7,11 +7,12 @@
 #'
 #' Simulates an ideal population using the reference model from Tokars (2018).
 #'
-#' @param init_pop_size Inital population size
-#' @param vaccinations Number of vaccinations at every timepoint
-#' @param cases_novac Number of cases at every timepoint
-#' @param ve Vaccine effectiveness
-#' @param lag Lag period measured in timepoints
+#' @param init_pop_size Integer inital population size
+#' @param vaccinations Integer vector number of vaccinations at every timepoint
+#' @param cases_novac Integer vector number of cases at every timepoint
+#' @param ve Vaccine effectiveness (proportion)
+#' @param lag Integer lag period measured in timepoints
+#' @param deterministic Boolean whether to make the simulation deterministic
 #' @param seed Integer seed to use
 #'
 #' @return A \link[tibble]{tibble} with the following columns:
@@ -24,7 +25,6 @@
 #'   \item{popn}{Non-cases in absence of vaccination}
 #'   \item{pvac}{Proportion of starting population vaccinated}
 #'   \item{b}{Number vaccinated at that time}
-#'   \item{A_to_E}{Number moved from A to E at that time}
 #'   \item{A}{Non-vaccinated non-cases}
 #'   \item{B}{Vaccinated non-cases lagging}
 #'   \item{E}{Non-vaccinated cases}
@@ -42,8 +42,13 @@ sim_ideal <- function(init_pop_size,
                       cases_novac,
                       ve,
                       lag,
+                      deterministic,
                       seed = sample.int(.Machine$integer.max, 1)) {
-  ideal_pop <- sim_ideal_cpp(init_pop_size, vaccinations, cases_novac, ve, lag)
+  set.seed(seed)
+  if (length(ve) == 1) ve <- rep(ve, length(vaccinations))
+  ideal_pop <- sim_ideal_cpp(
+    init_pop_size, vaccinations, cases_novac, ve, lag, deterministic
+  )
   attr(ideal_pop, "seed") <- seed
   attr(ideal_pop, "init_pop_size") <- init_pop_size
   attr(ideal_pop, "lag") <- lag

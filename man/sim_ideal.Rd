@@ -10,19 +10,22 @@ sim_ideal(
   cases_novac,
   ve,
   lag,
+  deterministic,
   seed = sample.int(.Machine$integer.max, 1)
 )
 }
 \arguments{
-\item{init_pop_size}{Inital population size}
+\item{init_pop_size}{Integer inital population size}
 
-\item{vaccinations}{Number of vaccinations at every timepoint}
+\item{vaccinations}{Integer vector number of vaccinations at every timepoint}
 
-\item{cases_novac}{Number of cases at every timepoint}
+\item{cases_novac}{Integer vector number of cases at every timepoint}
 
-\item{ve}{Vaccine effectiveness}
+\item{ve}{Vaccine effectiveness (proportion)}
 
-\item{lag}{Lag period measured in timepoints}
+\item{lag}{Integer lag period measured in timepoints}
+
+\item{deterministic}{Boolean whether to make the simulation deterministic}
 
 \item{seed}{Integer seed to use}
 }
@@ -37,7 +40,6 @@ A \link[tibble]{tibble} with the following columns:
   \item{popn}{Non-cases in absence of vaccination}
   \item{pvac}{Proportion of starting population vaccinated}
   \item{b}{Number vaccinated at that time}
-  \item{A_to_E}{Number moved from A to E at that time}
   \item{A}{Non-vaccinated non-cases}
   \item{B}{Vaccinated non-cases lagging}
   \item{E}{Non-vaccinated cases}
