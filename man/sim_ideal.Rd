@@ -29,6 +29,18 @@ sim_ideal(
 \value{
 A \link[tibble]{tibble} with the following columns:
   \item{timepoint}{Index of timepoint}
+  \item{vaccinations}{Expected number of vaccinations}
+  \item{cases_novac}{Expected number of cases in absence of vaccination}
+  \item{ve}{Expected vaccine effectiveness}
+  \item{pflu}{Flu incidence}
+  \item{cases}{Actual number of cases}
+  \item{popn}{Non-cases in absence of vaccination}
+  \item{pvac}{Proportion of starting population vaccinated}
+  \item{b}{Number vaccinated at that time}
+  \item{A_to_E}{Number moved from A to E at that time}
+  \item{A}{Non-vaccinated non-cases}
+  \item{B}{Vaccinated non-cases lagging}
+  \item{E}{Non-vaccinated cases}
 }
 \description{
 Simulates an ideal population using the reference model from Tokars (2018).

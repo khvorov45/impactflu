@@ -16,13 +16,24 @@
 #'
 #' @return A \link[tibble]{tibble} with the following columns:
 #'   \item{timepoint}{Index of timepoint}
+#'   \item{vaccinations}{Expected number of vaccinations}
+#'   \item{cases_novac}{Expected number of cases in absence of vaccination}
+#'   \item{ve}{Expected vaccine effectiveness}
+#'   \item{pflu}{Flu incidence}
+#'   \item{cases}{Actual number of cases}
+#'   \item{popn}{Non-cases in absence of vaccination}
+#'   \item{pvac}{Proportion of starting population vaccinated}
+#'   \item{b}{Number vaccinated at that time}
+#'   \item{A_to_E}{Number moved from A to E at that time}
+#'   \item{A}{Non-vaccinated non-cases}
+#'   \item{B}{Vaccinated non-cases lagging}
+#'   \item{E}{Non-vaccinated cases}
 #'
 #' @references Tokars JI, Rolfes MA, Foppa IM, Reed C. An evaluation and update
 #'   of methods for estimating the number of influenza cases averted by
 #'   vaccination in the United States. Vaccine. 2018;36(48):7331–7337.
 #'   doi:10.1016/j.vaccine.2018.10.026
 #'
-#' @importFrom magrittr %>%
 #' @importFrom tibble as_tibble
 #'
 #' @export

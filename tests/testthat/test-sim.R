@@ -22,7 +22,11 @@ test_that("simulation works", {
     lag = 14L,
     seed = 1L
   )
-  expect_named(pop, c("timepoint", "vaccinations", "cases_novac", "ve"))
+  expect_named(
+    pop, c(
+      "timepoint", "vaccinations", "cases_novac", "ve", "pflu", "cases",
+      "popn", "pvac", "b", "A_to_E", "A", "B", "E"
+  ))
   expect_equal(attr(pop, "seed"), 1L)
   expect_equal(attr(pop, "init_pop_size"), 1e6L)
   expect_equal(attr(pop, "lag"), 14L)
