@@ -18,7 +18,6 @@ LinkingTo:
     Rcpp
 Imports: 
     Rcpp,
-    magrittr,
     tibble
 Suggests: 
     testthat (>= 2.1.0)
