@@ -7,11 +7,11 @@ int my_rbinom(int n, double p, bool deterministic) {
 }
 
 // [[Rcpp::export]]
-DataFrame sim_ideal_cpp(const int& init_pop_size,
+DataFrame sim_ideal_cpp(const int init_pop_size,
                         const IntegerVector& vaccinations,
                         const IntegerVector& cases_novac,
                         const NumericVector& ve,
-                        const int& lag,
+                        const int lag,
                         bool deterministic) {
   int nt = vaccinations.size();
   IntegerVector timepoint(nt);
