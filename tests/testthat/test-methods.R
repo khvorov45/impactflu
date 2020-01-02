@@ -3,6 +3,8 @@
 # Created 2020/01/03
 # Last edit 2020/01/03
 
+library(dplyr)
+
 test_that("method1 works", {
   pop <- sim_ideal(
     init_pop_size = 1e6L,
@@ -13,10 +15,24 @@ test_that("method1 works", {
     seed = 1L,
     deterministic = TRUE
   )
+  pop_monthly <- pop %>%
+    mutate(
+      dates = generate_dates(timepoint, lubridate::ymd("2017/08/01"), "day"),
+      month = lubridate::month(dates),
+      year = lubridate::year(dates)
+    ) %>%
+    group_by(year, month) %>%
+    summarise(
+      vaccinations = sum(vaccinations),
+      cases = sum(cases),
+      ve = mean(ve)
+    ) %>%
+    ungroup()
   m1 <- method1(
-    attr(pop, "init_pop_size"),  pop$vaccinations, pop$cases, pop$ve
+    attr(pop, "init_pop_size"),
+    pop_monthly$vaccinations, pop_monthly$cases, pop_monthly$ve
   )
   with(m1, {
-    expect_equal(cases, pop$cases)
+    expect_equal(cases, pop_monthly$cases)
   })
 })
