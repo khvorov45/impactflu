@@ -2,8 +2,8 @@
 using namespace Rcpp;
 
 int my_rbinom(int n, double p, bool deterministic) {
-  if (deterministic) return n * p;
-  return R::rbinom(n, p);
+  if (deterministic) return int(R::fround(n * p, 0));
+  return int(R::rbinom(n, p));
 }
 
 // [[Rcpp::export]]
