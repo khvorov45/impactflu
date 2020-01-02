@@ -35,6 +35,8 @@
 #'   doi:10.1016/j.vaccine.2018.10.026
 #'
 #' @importFrom tibble as_tibble
+#' @importFrom rlang abort
+#' @importFrom glue glue
 #'
 #' @export
 sim_ideal <- function(init_pop_size,
@@ -46,6 +48,13 @@ sim_ideal <- function(init_pop_size,
                       seed = sample.int(.Machine$integer.max, 1)) {
   set.seed(seed)
   if (length(ve) == 1) ve <- rep(ve, length(vaccinations))
+  if (length(cases_novac) == 1)
+    abort("length of cases_novac should be greater than 1")
+  if (length(vaccinations) != length(cases_novac))
+    abort(glue(
+      "length of cases_novac ({length(cases_novac)}) should match length of ",
+      "vaccinations ({length(vaccinations)})"
+    ))
   ideal_pop <- sim_ideal_cpp(
     init_pop_size, vaccinations, cases_novac, ve, lag, deterministic
   )

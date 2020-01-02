@@ -3,6 +3,8 @@
 export(generate_counts)
 export(sim_ideal)
 importFrom(Rcpp,sourceCpp)
+importFrom(glue,glue)
+importFrom(rlang,abort)
 importFrom(stats,dnorm)
 importFrom(tibble,as_tibble)
 useDynLib(impactflu, .registration = TRUE)

@@ -18,6 +18,8 @@ LinkingTo:
     Rcpp
 Imports: 
     Rcpp,
-    tibble
+    tibble,
+    rlang,
+    glue
 Suggests: 
     testthat (>= 2.1.0)
