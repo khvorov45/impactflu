@@ -126,3 +126,38 @@ test_that("errors are generated", {
     )
   )
 })
+
+test_that("random simulation works", {
+  pop <- sim_ideal(
+    init_pop_size = 1e6L,
+    vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
+    cases_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
+    ve = 0.48,
+    lag = 0L,
+    seed = 1L,
+    deterministic = FALSE
+  )
+  sum1 <- sum(pop$avert)
+  pop <- sim_ideal(
+    init_pop_size = 1e6L,
+    vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
+    cases_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
+    ve = 0.48,
+    lag = 0L,
+    seed = 1L,
+    deterministic = FALSE
+  )
+  sum2 <- sum(pop$avert)
+  expect_equal(sum1, sum2)
+  pop <- sim_ideal(
+    init_pop_size = 1e6L,
+    vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
+    cases_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
+    ve = 0.48,
+    lag = 0L,
+    seed = 2L,
+    deterministic = FALSE
+  )
+  sum3 <- sum(pop$avert)
+  expect_true(sum1 != sum3)
+})
