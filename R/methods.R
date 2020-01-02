@@ -19,6 +19,7 @@
 #'   \item{cases}{Observed cases}
 #'   \item{vaccinations}{Observed vaccinations}
 #'   \item{ve}{Assumed vaccine effectiveness}
+#'   \item{pvac}{Proportion of the starting population vaccinated}
 #'   \item{vc_lag}{Vaccine coverage lagged}
 #'   \item{pops}{Susceptible population}
 #'   \item{pflu}{Infection risk}
