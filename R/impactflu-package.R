@@ -3,4 +3,5 @@
 #' @importFrom Rcpp sourceCpp
 ## usethis namespace: end
 #' @importFrom dplyr lag
+#' @importFrom lubridate ymd
 NULL

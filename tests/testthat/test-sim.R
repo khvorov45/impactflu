@@ -15,6 +15,39 @@ test_that("count generation works", {
   expect_equal(sum(test_counts) / 1e6, 0.55, tol = 0.01)
 })
 
+test_that("date generation works", {
+  timepoints <- 1:5
+  start <- lubridate::ymd("2000-01-01")
+  expect_equal(
+    generate_dates(timepoints, start, "day"),
+    c(
+      lubridate::ymd("2000-01-01"), lubridate::ymd("2000-01-02"),
+      lubridate::ymd("2000-01-03"), lubridate::ymd("2000-01-04"),
+      lubridate::ymd("2000-01-05")
+    )
+  )
+  expect_equal(
+    generate_dates(timepoints, start, "month"),
+    c(
+      lubridate::ymd("2000-01-01"), lubridate::ymd("2000-02-01"),
+      lubridate::ymd("2000-03-01"), lubridate::ymd("2000-04-01"),
+      lubridate::ymd("2000-05-01")
+    )
+  )
+  expect_equal(
+    generate_dates(timepoints, start, "year"),
+    c(
+      lubridate::ymd("2000-01-01"), lubridate::ymd("2001-01-01"),
+      lubridate::ymd("2002-01-01"), lubridate::ymd("2003-01-01"),
+      lubridate::ymd("2004-01-01")
+    )
+  )
+  expect_error(
+    generate_dates(timepoints, start, "wrong"),
+    "unrecognised unit 'wrong'"
+  )
+})
+
 test_that("simulation works with no lag", {
   pop <- sim_ideal(
     init_pop_size = 1e6L,

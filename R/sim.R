@@ -86,3 +86,30 @@ generate_counts <- function(init_pop_size, n_timepoints,
   counts <- densities * density_coef
   as.integer(counts)
 }
+
+#' Generate dates
+#'
+#' Generate dates given timepoint indeces, start date and step unit
+#'
+#' @param timepoints Integer vector timepoint indeces
+#' @param start Date of index 1
+#' @param unit "year" "month" or "day"
+#'
+#' @return A vector of dates the same length as \code{timepoints}
+#'
+#' @importFrom rlang abort
+#' @importFrom glue glue
+#' @importFrom lubridate day<- month<- year<- day month year
+#'
+#' @export
+generate_dates <- function(timepoints, start, unit) {
+  if (unit == "day")
+    day(start) <- day(start) + timepoints - 1
+  else if (unit == "month")
+    month(start) <- month(start) + timepoints - 1
+  else if (unit == "year")
+    year(start) <- year(start) + timepoints - 1
+  else
+    abort(glue("unrecognised unit '{unit}'"))
+  start
+}
