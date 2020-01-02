@@ -45,7 +45,7 @@ DataFrame sim_ideal_cpp(const int& init_pop_size,
     A[i] = A[i - 1] - A_to_E - b[i];
     B[i] = B[i - 1] + b[i];
     F[i] = F[i - 1];
-    for (int j = 1; j <= lag || i - j < 0; j++) {
+    for (int j = 1; (j <= lag) && (i - j >= 0); j++) {
       int bimj_to_F = my_rbinom(b[i - j], pflu[i], deterministic);
       b[i - j] -= bimj_to_F;
       B[i] -= bimj_to_F;
