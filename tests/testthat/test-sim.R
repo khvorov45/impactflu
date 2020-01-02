@@ -97,36 +97,6 @@ test_that("simulation works with lag", {
   expect_equal(pop$B, pop$b + dplyr::lag(pop$b, default = 0L))
 })
 
-test_that("errors are generated", {
-  expect_error(
-    sim_ideal(
-      init_pop_size = 1e6L,
-      vaccinations = 0,
-      cases_novac = 0,
-      ve = 0.48,
-      lag = 2L,
-      seed = 1L,
-      deterministic = TRUE
-    ),
-    "length of cases_novac should be greater than 1"
-  )
-  expect_error(
-    sim_ideal(
-      init_pop_size = 1e6L,
-      vaccinations = 0,
-      cases_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
-      ve = 0.48,
-      lag = 2L,
-      seed = 1L,
-      deterministic = TRUE
-    ),
-    paste0(
-      "length of cases_novac \\(304\\) should match ",
-      "length of vaccinations \\(1\\)"
-    )
-  )
-})
-
 test_that("random simulation works", {
   pop <- sim_ideal(
     init_pop_size = 1e6L,
