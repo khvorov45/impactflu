@@ -19,6 +19,7 @@ LinkingTo:
 Imports: 
     Rcpp,
     tibble,
+    dplyr,
     rlang,
     glue
 Suggests: 

@@ -3,6 +3,8 @@
 # Created 2019/12/24
 # Last edit 2019/12/24
 
+library(testthat)
+
 test_that("count generation works", {
   set.seed(1)
   test_counts <- generate_counts(
@@ -13,7 +15,7 @@ test_that("count generation works", {
   expect_equal(sum(test_counts) / 1e6, 0.55, tol = 0.01)
 })
 
-test_that("simulation works", {
+test_that("simulation works with no lag", {
   pop <- sim_ideal(
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
@@ -31,5 +33,96 @@ test_that("simulation works", {
   expect_equal(attr(pop, "seed"), 1L)
   expect_equal(attr(pop, "init_pop_size"), 1e6L)
   expect_equal(attr(pop, "lag"), 0L)
-  expect_equal(pop$timepoint, 1L:304L)
+  with(pop, {
+    expect_equal(timepoint, 1L:304L)
+    expect_equal(pflu, cases_novac / dplyr::lag(popn, default = 1e6L))
+    expect_equal(
+      cases,
+      as.integer(round(pflu * dplyr::lag(A, default = 1e6L), 0)) +
+      as.integer(round(pflu * dplyr::lag(C, default = 0L), 0))
+    )
+    expect_equal(popn, dplyr::lag(popn, default = 1e6L) - cases_novac)
+    expect_equal(avert, cases_novac - cases)
+    expect_equal(
+      pvac, vaccinations /
+        (dplyr::lag(A, default = 1e6L) + dplyr::lag(E, default = 0L))
+    )
+    expect_equal(b, as.integer(round(pvac * dplyr::lag(A, default = 1e6L), 0)))
+    expect_equal(
+      A, dplyr::lag(A, default = 1e6L) -
+        as.integer(round(dplyr::lag(A, default = 1e6L) * pflu), 0) - b
+    )
+    expect_equal(B, rep(0L, 304))
+    expect_equal(
+      C, dplyr::lag(C, default = 0L) -
+        as.integer(round(dplyr::lag(C, default = 0L) * pflu, 0)) +
+        as.integer(round(b * (1 - ve), 0))
+    )
+    expect_equal(
+      D, dplyr::lag(D, default = 0L) + b - as.integer(round(b * (1 - ve), 0))
+    )
+    expect_equal(
+      E, dplyr::lag(E, default = 0L) +
+        as.integer(round(dplyr::lag(A, default = 1e6L) * pflu, 0)) -
+        as.integer(round(dplyr::lag(E, default = 0L) * pvac, 0))
+    )
+    expect_equal(
+      `F`, dplyr::lag(`F`, default = 0L) +
+        as.integer(round(dplyr::lag(C, default = 0L) * pflu, 0)) +
+        as.integer(round(dplyr::lag(E, default = 0L) * pvac, 0))
+    )
+  })
+})
+
+test_that("simulation works with lag", {
+  pop <- sim_ideal(
+    init_pop_size = 1e6L,
+    vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
+    cases_novac = rep(0L, 304),
+    ve = 0.48,
+    lag = 1L,
+    seed = 1L,
+    deterministic = TRUE
+  )
+  expect_equal(pop$B, pop$b)
+  pop <- sim_ideal(
+    init_pop_size = 1e6L,
+    vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
+    cases_novac = rep(0L, 304),
+    ve = 0.48,
+    lag = 2L,
+    seed = 1L,
+    deterministic = TRUE
+  )
+  expect_equal(pop$B, pop$b + dplyr::lag(pop$b, default = 0L))
+})
+
+test_that("errors are generated", {
+  expect_error(
+    sim_ideal(
+      init_pop_size = 1e6L,
+      vaccinations = 0,
+      cases_novac = 0,
+      ve = 0.48,
+      lag = 2L,
+      seed = 1L,
+      deterministic = TRUE
+    ),
+    "length of cases_novac should be greater than 1"
+  )
+  expect_error(
+    sim_ideal(
+      init_pop_size = 1e6L,
+      vaccinations = 0,
+      cases_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
+      ve = 0.48,
+      lag = 2L,
+      seed = 1L,
+      deterministic = TRUE
+    ),
+    paste0(
+      "length of cases_novac \\(304\\) should match ",
+      "length of vaccinations \\(1\\)"
+    )
+  )
 })
