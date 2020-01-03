@@ -29,7 +29,7 @@ A \link[tibble]{tibble} with the following columns (method-dependent):
   \item{pops}{Susceptible population}
   \item{pflu}{Infection risk}
   \item{popn}{Non-cases is absence of vaccination}
-  \item{cases_novac}{Cases in absense of vaccination}
+  \item{cases_novac}{Cases in absence of vaccination}
   \item{avert}{Expected number of vaccinations}
 }
 \description{

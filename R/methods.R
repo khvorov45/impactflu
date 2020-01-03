@@ -24,7 +24,7 @@
 #'   \item{pops}{Susceptible population}
 #'   \item{pflu}{Infection risk}
 #'   \item{popn}{Non-cases is absence of vaccination}
-#'   \item{cases_novac}{Cases in absense of vaccination}
+#'   \item{cases_novac}{Cases in absence of vaccination}
 #'   \item{avert}{Expected number of vaccinations}
 #'
 #' @references Tokars JI, Rolfes MA, Foppa IM, Reed C. An evaluation and update

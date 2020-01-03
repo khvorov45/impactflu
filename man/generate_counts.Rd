@@ -7,7 +7,7 @@
 generate_counts(init_pop_size, n_timepoints, overall_prop, mean, sd)
 }
 \arguments{
-\item{init_pop_size}{Inital population size}
+\item{init_pop_size}{Initial population size}
 
 \item{n_timepoints}{Number of timepoints}
 

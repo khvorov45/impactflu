@@ -15,7 +15,7 @@ sim_ideal(
 )
 }
 \arguments{
-\item{init_pop_size}{Integer inital population size}
+\item{init_pop_size}{Integer initial population size}
 
 \item{vaccinations}{Integer vector number of vaccinations at every timepoint}
 

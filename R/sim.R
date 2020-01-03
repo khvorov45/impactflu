@@ -7,7 +7,7 @@
 #'
 #' Simulates an ideal population using the reference model from Tokars (2018).
 #'
-#' @param init_pop_size Integer inital population size
+#' @param init_pop_size Integer initial population size
 #' @param vaccinations Integer vector number of vaccinations at every timepoint
 #' @param cases_novac Integer vector number of cases at every timepoint
 #' @param ve Vaccine effectiveness (proportion)
@@ -61,7 +61,7 @@ sim_ideal <- function(init_pop_size,
 #'
 #' Generates counts from a normal distribution density function.
 #'
-#' @param init_pop_size Inital population size
+#' @param init_pop_size Initial population size
 #' @param n_timepoints Number of timepoints
 #' @param overall_prop Overall proportion of the population to be included in
 #'   the counts over all the timepoints
@@ -89,9 +89,9 @@ generate_counts <- function(init_pop_size, n_timepoints,
 
 #' Generate dates
 #'
-#' Generate dates given timepoint indeces, start date and step unit
+#' Generate dates given timepoint indices, start date and step unit
 #'
-#' @param timepoints Integer vector timepoint indeces
+#' @param timepoints Integer vector timepoint indices
 #' @param start Date of index 1
 #' @param unit "year" "month" or "day"
 #'

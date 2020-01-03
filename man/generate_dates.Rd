@@ -7,7 +7,7 @@
 generate_dates(timepoints, start, unit)
 }
 \arguments{
-\item{timepoints}{Integer vector timepoint indeces}
+\item{timepoints}{Integer vector timepoint indices}
 
 \item{start}{Date of index 1}
 
@@ -17,5 +17,5 @@ generate_dates(timepoints, start, unit)
 A vector of dates the same length as \code{timepoints}
 }
 \description{
-Generate dates given timepoint indeces, start date and step unit
+Generate dates given timepoint indices, start date and step unit
 }
