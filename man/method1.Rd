@@ -2,9 +2,12 @@
 % Please edit documentation in R/methods.R
 \name{method1}
 \alias{method1}
+\alias{method3}
 \title{Analysis methods from Tokars (2018)}
 \usage{
 method1(init_pop_size, vaccinations, cases, ve)
+
+method3(init_pop_size, vaccinations, cases, ve)
 }
 \arguments{
 \item{init_pop_size}{Integer initial population size}
@@ -30,7 +33,7 @@ A \link[tibble]{tibble} with the following columns (method-dependent):
   \item{avert}{Expected number of vaccinations}
 }
 \description{
-Method 1 was said to be as current. Method 3 was determined to be least
+Method 1 was said to be as current. Method 3 was determined to be the least
 biased.
 }
 \references{

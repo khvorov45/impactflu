@@ -5,7 +5,7 @@
 
 #' Analysis methods from Tokars (2018)
 #'
-#' Method 1 was said to be as current. Method 3 was determined to be least
+#' Method 1 was said to be as current. Method 3 was determined to be the least
 #' biased.
 #'
 #' @param init_pop_size Integer initial population size
@@ -38,4 +38,11 @@
 method1 <- function(init_pop_size, vaccinations, cases, ve) {
   check_counts(vaccinations, cases, ve)
   as_tibble(method1_cpp(init_pop_size, vaccinations, cases, ve))
+}
+
+#' @rdname method1
+#' @export
+method3 <- function(init_pop_size, vaccinations, cases, ve) {
+  check_counts(vaccinations, cases, ve)
+  as_tibble(method3_cpp(init_pop_size, vaccinations, cases, ve))
 }
