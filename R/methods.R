@@ -3,9 +3,9 @@
 # Created 2020/01/03
 # Last edit 2020/01/03
 
-#' Methods from Tokars (2018)
+#' Analysis methods from Tokars (2018)
 #'
-#' Method 1 was described as current. Method 3 was determined to be least
+#' Method 1 was said to be as current. Method 3 was determined to be least
 #' biased.
 #'
 #' @param init_pop_size Integer initial population size
