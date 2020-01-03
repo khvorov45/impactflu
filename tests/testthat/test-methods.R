@@ -33,6 +33,22 @@ test_that("method1 works", {
     pop_monthly$vaccinations, pop_monthly$cases, pop_monthly$ve
   )
   with(m1, {
+    expect_equal(vaccinations, pop_monthly$vaccinations)
     expect_equal(cases, pop_monthly$cases)
+    expect_equal(ve, pop_monthly$ve)
+    expect_equal(vc_lag, (pvac + lag(pvac, default = 0)) / 2)
+    expect_equal(
+      pops,
+      as.integer((lag(pops, default = attr(pop, "init_pop_size")) -
+        lag(cases, default = 0L)) * (1 - vc_lag * ve))
+    )
+    expect_equal(pflu, cases / pops)
+    expect_equal(
+      popn, lag(popn, default = attr(pop, "init_pop_size")) -
+        lag(cases_novac, default = 0L)
+    )
+    expect_equal(
+      avert, cases_novac - cases
+    )
   })
 })
