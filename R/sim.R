@@ -37,18 +37,34 @@
 #' @importFrom tibble as_tibble
 #'
 #' @export
-sim_ideal <- function(init_pop_size,
-                      vaccinations,
-                      cases_novac,
-                      ve,
-                      lag,
-                      deterministic,
-                      seed = sample.int(.Machine$integer.max, 1)) {
+#'
+#' @examples
+#' # Population from Tokars (2018)
+#' nsam <- 1e6L
+#' ndays <- 304L
+#' pop_tok <- sim_reference(
+#'   init_pop_size = nsam,
+#'   vaccinations = generate_counts(nsam, ndays, 0.55, mean = 100, sd = 50),
+#'   cases_novac = generate_counts(nsam, ndays, 0.12, mean = 190, sd = 35),
+#'   ve = 0.48,
+#'   lag = 14,
+#'   deterministic = TRUE
+#' )
+#' head(pop_tok)
+#' sum(pop_tok$avert)
+sim_reference <- function(init_pop_size,
+                          vaccinations,
+                          cases_novac,
+                          ve,
+                          lag,
+                          deterministic,
+                          seed = sample.int(.Machine$integer.max, 1)) {
   set.seed(seed)
-  if (length(ve) == 1)
+  if (length(ve) == 1) {
     ve <- rep(ve, length(vaccinations))
+  }
   check_counts(vaccinations, cases_novac, ve)
-  ideal_pop <- sim_ideal_cpp(
+  ideal_pop <- sim_reference_cpp(
     init_pop_size, vaccinations, cases_novac, ve, lag, deterministic
   )
   attr(ideal_pop, "seed") <- seed
@@ -76,9 +92,9 @@ sim_ideal <- function(init_pop_size,
 #'
 #' @examples
 #' # Tokars (2018) vaccinations
-#' generate_counts(1e6, 304, 0.55, 100, 50)
+#' vacs_tok <- generate_counts(1e6, 304, 0.55, 100, 50)
 #' # Tokars (2018) cases
-#' generate_counts(1e6, 304, 0.12, 190, 35)
+#' casen_tok <- generate_counts(1e6, 304, 0.12, 190, 35)
 generate_counts <- function(init_pop_size, n_timepoints,
                             overall_prop, mean, sd) {
   densities <- dnorm(1:n_timepoints, mean, sd)
@@ -99,17 +115,23 @@ generate_counts <- function(init_pop_size, n_timepoints,
 #'
 #' @importFrom rlang abort
 #' @importFrom glue glue
-#' @importFrom lubridate day<- month<- year<- day month year
+#' @importFrom lubridate day<- month<- year<- day month year ymd
 #'
 #' @export
+#'
+#' @examples
+#' # Dates from Tokars (2018)
+#' timepoints <- 1L:304L
+#' dates <- generate_dates(timepoints, lubridate::ymd("2017-08-01"), "day")
 generate_dates <- function(timepoints, start, unit) {
-  if (unit == "day")
+  if (unit == "day") {
     day(start) <- day(start) + timepoints - 1
-  else if (unit == "month")
+  } else if (unit == "month") {
     month(start) <- month(start) + timepoints - 1
-  else if (unit == "year")
+  } else if (unit == "year") {
     year(start) <- year(start) + timepoints - 1
-  else
+  } else {
     abort(glue("unrecognised unit '{unit}'"))
+  }
   start
 }

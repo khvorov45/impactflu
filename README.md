@@ -28,5 +28,5 @@ devtools::install_github("khvorov45/impactflu")
 
 Tokars JI, Rolfes MA, Foppa IM, Reed C. An evaluation and update of
 methods for estimating the number of influenza cases averted by
-vaccination in the United States. Vaccine. 2018;36(48):7331–7337.
-<doi:10.1016/j.vaccine.2018.10.026>
+vaccination in the United States. Vaccine. 2018;36(48):7331–7337. doi:
+10.1016/j.vaccine.2018.10.026

@@ -7,8 +7,10 @@ Authors@R:
            role = c("aut", "cre"),
            email = "khvorov45@gmail.com")
 Description: 
-  Contains functions to analyse the impact of influenza as per
-  Tokars (2018) <doi:10.1016/j.vaccine.2018.10.026>.
+  Implements the compartment model from Tokars (2018) 
+  <doi:10.1016/j.vaccine.2018.10.026>. This enables quantification of 
+  population-wide impact of vaccination against vaccine-preventable 
+  diseases such as influenza.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

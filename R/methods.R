@@ -33,8 +33,50 @@
 #'   doi:10.1016/j.vaccine.2018.10.026
 #'
 #' @importFrom tibble as_tibble
+#' @importFrom dplyr mutate group_by ungroup summarise
+#' @importFrom lubridate year month ymd
 #'
 #' @export
+#'
+#' @examples
+#' library(dplyr)
+#'
+#' # Simulate a population
+#' nsam <- 1e6L
+#' ndays <- 304L
+#' pop_tok <- sim_reference(
+#'   init_pop_size = nsam,
+#'   vaccinations = generate_counts(nsam, ndays, 0.55, mean = 100, sd = 50),
+#'   cases_novac = generate_counts(nsam, ndays, 0.12, mean = 190, sd = 35),
+#'   ve = 0.48,
+#'   lag = 14,
+#'   deterministic = TRUE
+#' )
+#'
+#' # Summarise by month
+#' pop_tok_month <- pop_tok %>%
+#'   mutate(
+#'     datestamp = generate_dates(
+#'       timepoint, lubridate::ymd("2017-08-01"), "day"
+#'     ),
+#'     year = lubridate::year(datestamp),
+#'     month = lubridate::month(datestamp)
+#'  ) %>%
+#'  group_by(year, month) %>%
+#'  summarise(
+#'    vaccinations = sum(vaccinations), cases = sum(cases), ve = mean(ve)
+#'  ) %>%
+#'  ungroup()
+#'
+#' # Estimate averted cases using the two different methods
+#' m1 <- method1(
+#'   nsam, pop_tok_month$vaccinations, pop_tok_month$cases, pop_tok_month$ve
+#' )
+#' m3 <- method3(
+#'   nsam, pop_tok_month$vaccinations, pop_tok_month$cases, pop_tok_month$ve
+#' )
+#' sum(m1$avert)
+#' sum(m3$avert)
 method1 <- function(init_pop_size, vaccinations, cases, ve) {
   check_counts(vaccinations, cases, ve)
   as_tibble(method1_cpp(init_pop_size, vaccinations, cases, ve))
