@@ -1,6 +1,6 @@
 Package: impactflu
 Title: Impact of Flu
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: 
     person(given = "Arseniy",
            family = "Khvorov",
@@ -23,6 +23,10 @@ Imports:
     rlang,
     glue,
     lubridate,
-    magrittr
+    magrittr,
+    DiagrammeR
 Suggests: 
-    testthat (>= 2.1.0)
+    testthat (>= 2.1.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

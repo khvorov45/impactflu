@@ -1,0 +1,29 @@
+digraph flowchart {
+
+  #graph [bgcolor="black"];
+  #edge [color=white];
+
+  # node definitions with substituted label text
+  node [fontname = Helvetica, shape = oval]
+  A [label = "A: non-vaccinated\nsusceptible"]
+  B [label = <b<SUB>d-1...d-g</SUB>: vaccinated lagging> style = dashed]
+  C [label = "C: vacinated\nsusceptible"]
+  D [label = "D: vaccinated\nimmune"]
+  E [label = "E: non-vaccinated\ninfected" style = dashed]
+  F [label = "F: vaccinated\ninfected" style = dashed]
+  G [label = "G: non-vaccinated\ndead from flu"]
+  H [label = "H: vaccinated\ndead from flu"]
+  I [label = "I: non-vaccinated\nrecovered"]
+  J [label = "I: vaccinated\nrecovered"]
+
+  # edge definitions with the node IDs
+  A -> B [label = <b<SUB>d</SUB>=A<SUB>d-1</SUB>v<SUB>d</SUB>>];
+  A -> E [label = <A<SUB>d-1</SUB>r<SUB>d</SUB>>];
+  E -> G [label = <E<SUB>d-1</SUB>m<SUB>d</SUB>>];
+  B -> F [label = <b<SUB>d-1...d-g</SUB>r<SUB>d</SUB>>];
+  B -> C [label = <b<SUB>d-g</SUB>(1-w<SUB>d</SUB>)>];
+  C -> F [label = <C<SUB>d-1</SUB>r<SUB>d</SUB>>];
+  B -> D [label = <b<SUB>d-g</SUB>w<SUB>d</SUB>>];
+  F -> H [label = <f<SUB>d...d-h</SUB>m<SUB>d</SUB>>];
+  F -> I [label = <f<SUB>d-h</SUB>(1-m<SUB>d</SUB>)>];
+}

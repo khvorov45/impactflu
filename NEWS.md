@@ -1,3 +1,9 @@
+# 0.1.0-dev
+
+* Added vingette "sim-model" which shows the simulation (reference) model compartments and calculations.
+
+* Extended the reference model to include the dead compartment.
+
 # 0.1.0
 
 First release
