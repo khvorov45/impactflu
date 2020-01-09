@@ -61,7 +61,7 @@ DataFrame sim_ideal_cpp(const int init_pop_size,
     int C_to_F = my_rbinom(C[i - 1], pflu[i], deterministic);
     C[i] = C[i - 1] - C_to_F + blag_to_C;
     D[i] = D[i - 1] + blag_to_D;
-    int E_to_F = my_rbinom(E[i - 1], pvac[i], deterministic);
+    int E_to_F = vaccinations[i] - b[i];
     E[i] = E[i - 1] + A_to_E - E_to_F;
     F[i] += E_to_F + C_to_F;
     cases[i] += C_to_F;
