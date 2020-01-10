@@ -5,7 +5,7 @@
 
 library(dplyr)
 
-pop <- sim_ideal(
+pop <- sim_reference(
   init_pop_size = 1e6L,
   vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
   cases_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),

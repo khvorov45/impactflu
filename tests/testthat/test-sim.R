@@ -49,7 +49,7 @@ test_that("date generation works", {
 })
 
 test_that("simulation works with no lag", {
-  pop <- sim_ideal(
+  pop <- sim_reference(
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
     cases_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
@@ -108,7 +108,7 @@ test_that("simulation works with no lag", {
 })
 
 test_that("simulation works with lag", {
-  pop <- sim_ideal(
+  pop <- sim_reference(
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
     cases_novac = rep(0L, 304),
@@ -118,7 +118,7 @@ test_that("simulation works with lag", {
     deterministic = TRUE
   )
   expect_equal(pop$B, pop$b)
-  pop <- sim_ideal(
+  pop <- sim_reference(
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
     cases_novac = rep(0L, 304),
@@ -131,7 +131,7 @@ test_that("simulation works with lag", {
 })
 
 test_that("random simulation works", {
-  pop <- sim_ideal(
+  pop <- sim_reference(
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
     cases_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
@@ -141,7 +141,7 @@ test_that("random simulation works", {
     deterministic = FALSE
   )
   sum1 <- sum(pop$avert)
-  pop <- sim_ideal(
+  pop <- sim_reference(
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
     cases_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
@@ -152,7 +152,7 @@ test_that("random simulation works", {
   )
   sum2 <- sum(pop$avert)
   expect_equal(sum1, sum2)
-  pop <- sim_ideal(
+  pop <- sim_reference(
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
     cases_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),

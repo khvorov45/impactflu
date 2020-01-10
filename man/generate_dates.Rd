@@ -19,3 +19,8 @@ A vector of dates the same length as \code{timepoints}
 \description{
 Generate dates given timepoint indices, start date and step unit
 }
+\examples{
+# Dates from Tokars (2018)
+timepoints <- 1L:304L
+dates <- generate_dates(timepoints, lubridate::ymd("2017-08-01"), "day")
+}

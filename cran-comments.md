@@ -1,3 +1,9 @@
+## Resubmission
+
+- Made Description in DESCRIPTION more descriptive.
+
+- Added executable examples to all exported functions.
+
 ## Test environments
 - Windows 10 (local install), R 3.6.2
 - Windows Server 2008 (on rhub), R-devel
