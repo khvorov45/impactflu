@@ -1,3 +1,7 @@
+## Resumbission 2
+
+- Converted title to title case
+
 ## Resubmission
 
 - Made Description in DESCRIPTION more descriptive.
