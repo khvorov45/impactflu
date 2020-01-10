@@ -9,7 +9,7 @@ method3_cpp <- function(init_pop_size, vaccinations, cases, ve) {
     .Call(`_impactflu_method3_cpp`, init_pop_size, vaccinations, cases, ve)
 }
 
-sim_reference_cpp <- function(init_pop_size, vaccinations, cases_novac, ve, lag, deterministic) {
-    .Call(`_impactflu_sim_reference_cpp`, init_pop_size, vaccinations, cases_novac, ve, lag, deterministic)
+sim_reference_cpp <- function(init_pop_size, vaccinations, infections_novac, ve, lag, deterministic) {
+    .Call(`_impactflu_sim_reference_cpp`, init_pop_size, vaccinations, infections_novac, ve, lag, deterministic)
 }
 

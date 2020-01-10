@@ -9,7 +9,7 @@ int my_rbinom(int n, double p, bool deterministic) {
 // [[Rcpp::export]]
 DataFrame sim_reference_cpp(const int init_pop_size,
                             const IntegerVector& vaccinations,
-                            const IntegerVector& cases_novac,
+                            const IntegerVector& infections_novac,
                             const NumericVector& ve,
                             const int lag,
                             const bool deterministic) {
@@ -21,8 +21,8 @@ DataFrame sim_reference_cpp(const int init_pop_size,
     C(nt), D(nt), E(nt), F(nt), cases(nt), avert(nt);
   NumericVector pflu(nt), pvac(nt);
 
-  pflu[0] = cases_novac[0] / double(init_pop_size);
-  popn[0] = init_pop_size - cases_novac[0];
+  pflu[0] = infections_novac[0] / double(init_pop_size);
+  popn[0] = init_pop_size - infections_novac[0];
   pvac[0] = vaccinations[0] / double(init_pop_size);
   b[0] = my_rbinom(init_pop_size, pvac[0], deterministic);
   int A_to_E = my_rbinom(init_pop_size, pflu[0], deterministic);
@@ -33,11 +33,11 @@ DataFrame sim_reference_cpp(const int init_pop_size,
   } else B[0] = b[0];
   E[0] = A_to_E;
   cases[0] = A_to_E;
-  avert[0] = cases_novac[0] - cases[0];
+  avert[0] = infections_novac[0] - cases[0];
 
   for (int i = 1; i < nt; i++) {
-    pflu[i] = cases_novac[i] / double(popn[i - 1]);
-    popn[i] = popn[i - 1] - cases_novac[i];
+    pflu[i] = infections_novac[i] / double(popn[i - 1]);
+    popn[i] = popn[i - 1] - infections_novac[i];
     pvac[i] = double(vaccinations[i]) / (A[i - 1] + E[i - 1]);
     b[i] = my_rbinom(A[i - 1], pvac[i], deterministic);
     A_to_E = my_rbinom(A[i - 1], pflu[i], deterministic);
@@ -65,13 +65,13 @@ DataFrame sim_reference_cpp(const int init_pop_size,
     E[i] = E[i - 1] + A_to_E - E_to_F;
     F[i] += E_to_F + C_to_F;
     cases[i] += C_to_F;
-    avert[i] = cases_novac[i] - cases[i];
+    avert[i] = infections_novac[i] - cases[i];
   }
 
   DataFrame ideal_pop = DataFrame::create(
     _["timepoint"] = timepoint,
     _["vaccinations"] = vaccinations,
-    _["cases_novac"] = cases_novac,
+    _["infections_novac"] = infections_novac,
     _["ve"] = ve,
     _["pflu"] = pflu,
     _["popn"] = popn,

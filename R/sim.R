@@ -1,7 +1,7 @@
 # Simulation functions
 # Arseniy Khvorov
 # Created 2019/12/24
-# Last edit 2020/01/03
+# Last edit 2020/01/10
 
 #' Simulate an ideal population
 #'
@@ -9,7 +9,7 @@
 #'
 #' @param init_pop_size Integer initial population size
 #' @param vaccinations Integer vector number of vaccinations at every timepoint
-#' @param cases_novac Integer vector number of cases at every timepoint
+#' @param infections_novac Integer vector number of cases at every timepoint
 #' @param ve Vaccine effectiveness (proportion)
 #' @param lag Integer lag period measured in timepoints
 #' @param deterministic Boolean whether to make the simulation deterministic
@@ -18,7 +18,7 @@
 #' @return A \link[tibble]{tibble} with the following columns:
 #'   \item{timepoint}{Index of timepoint}
 #'   \item{vaccinations}{Expected number of vaccinations}
-#'   \item{cases_novac}{Expected number of cases in absence of vaccination}
+#'   \item{infections_novac}{Expected number of cases in absence of vaccination}
 #'   \item{ve}{Expected vaccine effectiveness}
 #'   \item{pflu}{Flu incidence}
 #'   \item{cases}{Actual number of cases}
@@ -45,7 +45,7 @@
 #' pop_tok <- sim_reference(
 #'   init_pop_size = nsam,
 #'   vaccinations = generate_counts(nsam, ndays, 0.55, mean = 100, sd = 50),
-#'   cases_novac = generate_counts(nsam, ndays, 0.12, mean = 190, sd = 35),
+#'   infections_novac = generate_counts(nsam, ndays, 0.12, mean = 190, sd = 35),
 #'   ve = 0.48,
 #'   lag = 14,
 #'   deterministic = TRUE
@@ -54,7 +54,7 @@
 #' sum(pop_tok$avert)
 sim_reference <- function(init_pop_size,
                           vaccinations,
-                          cases_novac,
+                          infections_novac,
                           ve,
                           lag,
                           deterministic,
@@ -63,9 +63,9 @@ sim_reference <- function(init_pop_size,
   if (length(ve) == 1) {
     ve <- rep(ve, length(vaccinations))
   }
-  check_counts(vaccinations, cases_novac, ve)
+  check_counts(vaccinations, infections_novac, ve)
   ideal_pop <- sim_reference_cpp(
-    init_pop_size, vaccinations, cases_novac, ve, lag, deterministic
+    init_pop_size, vaccinations, infections_novac, ve, lag, deterministic
   )
   attr(ideal_pop, "seed") <- seed
   attr(ideal_pop, "init_pop_size") <- init_pop_size

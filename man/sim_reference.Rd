@@ -7,7 +7,7 @@
 sim_reference(
   init_pop_size,
   vaccinations,
-  cases_novac,
+  infections_novac,
   ve,
   lag,
   deterministic,
@@ -19,7 +19,7 @@ sim_reference(
 
 \item{vaccinations}{Integer vector number of vaccinations at every timepoint}
 
-\item{cases_novac}{Integer vector number of cases at every timepoint}
+\item{infections_novac}{Integer vector number of cases at every timepoint}
 
 \item{ve}{Vaccine effectiveness (proportion)}
 
@@ -33,7 +33,7 @@ sim_reference(
 A \link[tibble]{tibble} with the following columns:
   \item{timepoint}{Index of timepoint}
   \item{vaccinations}{Expected number of vaccinations}
-  \item{cases_novac}{Expected number of cases in absence of vaccination}
+  \item{infections_novac}{Expected number of cases in absence of vaccination}
   \item{ve}{Expected vaccine effectiveness}
   \item{pflu}{Flu incidence}
   \item{cases}{Actual number of cases}
@@ -54,7 +54,7 @@ ndays <- 304L
 pop_tok <- sim_reference(
   init_pop_size = nsam,
   vaccinations = generate_counts(nsam, ndays, 0.55, mean = 100, sd = 50),
-  cases_novac = generate_counts(nsam, ndays, 0.12, mean = 190, sd = 35),
+  infections_novac = generate_counts(nsam, ndays, 0.12, mean = 190, sd = 35),
   ve = 0.48,
   lag = 14,
   deterministic = TRUE

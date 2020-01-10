@@ -52,7 +52,7 @@ test_that("simulation works with no lag", {
   pop <- sim_reference(
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
-    cases_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
+    infections_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
     ve = 0.48,
     lag = 0L,
     seed = 1L,
@@ -60,7 +60,7 @@ test_that("simulation works with no lag", {
   )
   expect_named(
     pop, c(
-      "timepoint", "vaccinations", "cases_novac", "ve", "pflu",
+      "timepoint", "vaccinations", "infections_novac", "ve", "pflu",
       "popn", "pvac", "b", "A", "B", "C", "D", "E", "F", "cases", "avert"
   ))
   expect_equal(attr(pop, "seed"), 1L)
@@ -68,14 +68,14 @@ test_that("simulation works with no lag", {
   expect_equal(attr(pop, "lag"), 0L)
   with(pop, {
     expect_equal(timepoint, 1L:304L)
-    expect_equal(pflu, cases_novac / dplyr::lag(popn, default = 1e6L))
+    expect_equal(pflu, infections_novac / dplyr::lag(popn, default = 1e6L))
     expect_equal(
       cases,
       as.integer(round(pflu * dplyr::lag(A, default = 1e6L), 0)) +
       as.integer(round(pflu * dplyr::lag(C, default = 0L), 0))
     )
-    expect_equal(popn, dplyr::lag(popn, default = 1e6L) - cases_novac)
-    expect_equal(avert, cases_novac - cases)
+    expect_equal(popn, dplyr::lag(popn, default = 1e6L) - infections_novac)
+    expect_equal(avert, infections_novac - cases)
     expect_equal(
       pvac, vaccinations /
         (dplyr::lag(A, default = 1e6L) + dplyr::lag(E, default = 0L))
@@ -111,7 +111,7 @@ test_that("simulation works with lag", {
   pop <- sim_reference(
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
-    cases_novac = rep(0L, 304),
+    infections_novac = rep(0L, 304),
     ve = 0.48,
     lag = 1L,
     seed = 1L,
@@ -121,7 +121,7 @@ test_that("simulation works with lag", {
   pop <- sim_reference(
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
-    cases_novac = rep(0L, 304),
+    infections_novac = rep(0L, 304),
     ve = 0.48,
     lag = 2L,
     seed = 1L,
@@ -134,7 +134,7 @@ test_that("random simulation works", {
   pop <- sim_reference(
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
-    cases_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
+    infections_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
     ve = 0.48,
     lag = 0L,
     seed = 1L,
@@ -144,7 +144,7 @@ test_that("random simulation works", {
   pop <- sim_reference(
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
-    cases_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
+    infections_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
     ve = 0.48,
     lag = 0L,
     seed = 1L,
@@ -155,7 +155,7 @@ test_that("random simulation works", {
   pop <- sim_reference(
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
-    cases_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
+    infections_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
     ve = 0.48,
     lag = 0L,
     seed = 2L,
