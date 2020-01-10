@@ -34,7 +34,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // sim_reference_cpp
-DataFrame sim_reference_cpp(const int init_pop_size, const IntegerVector& vaccinations, const IntegerVector& cases_novac, const NumericVector& ve, const int lag, bool deterministic);
+DataFrame sim_reference_cpp(const int init_pop_size, const IntegerVector& vaccinations, const IntegerVector& cases_novac, const NumericVector& ve, const int lag, const bool deterministic);
 RcppExport SEXP _impactflu_sim_reference_cpp(SEXP init_pop_sizeSEXP, SEXP vaccinationsSEXP, SEXP cases_novacSEXP, SEXP veSEXP, SEXP lagSEXP, SEXP deterministicSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -44,7 +44,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const IntegerVector& >::type cases_novac(cases_novacSEXP);
     Rcpp::traits::input_parameter< const NumericVector& >::type ve(veSEXP);
     Rcpp::traits::input_parameter< const int >::type lag(lagSEXP);
-    Rcpp::traits::input_parameter< bool >::type deterministic(deterministicSEXP);
+    Rcpp::traits::input_parameter< const bool >::type deterministic(deterministicSEXP);
     rcpp_result_gen = Rcpp::wrap(sim_reference_cpp(init_pop_size, vaccinations, cases_novac, ve, lag, deterministic));
     return rcpp_result_gen;
 END_RCPP

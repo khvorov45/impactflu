@@ -12,7 +12,7 @@ DataFrame sim_reference_cpp(const int init_pop_size,
                             const IntegerVector& cases_novac,
                             const NumericVector& ve,
                             const int lag,
-                            bool deterministic) {
+                            const bool deterministic) {
   int nt = vaccinations.size();
   IntegerVector timepoint(nt);
   for (int i = 0; i < nt; i++) timepoint[i] = i + 1;
