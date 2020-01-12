@@ -61,7 +61,7 @@ test_that("simulation works with no lag", {
   expect_named(
     pop, c(
       "timepoint", "vaccinations", "infections_novac", "ve", "pflu",
-      "popn", "pvac", "b", "A", "B", "C", "D", "E", "F", "cases", "avert"
+      "popn", "pvac", "b", "b_og", "A", "C", "D", "E", "F", "cases", "avert"
   ))
   expect_equal(attr(pop, "seed"), 1L)
   expect_equal(attr(pop, "init_pop_size"), 1e6L)
@@ -81,11 +81,11 @@ test_that("simulation works with no lag", {
         (dplyr::lag(A, default = 1e6L) + dplyr::lag(E, default = 0L))
     )
     expect_equal(b, as.integer(round(pvac * dplyr::lag(A, default = 1e6L), 0)))
+    expect_equal(b_og, b) # No time to get infected
     expect_equal(
       A, dplyr::lag(A, default = 1e6L) -
         as.integer(round(dplyr::lag(A, default = 1e6L) * pflu), 0) - b
     )
-    expect_equal(B, rep(0L, 304))
     expect_equal(
       C, dplyr::lag(C, default = 0L) -
         as.integer(round(dplyr::lag(C, default = 0L) * pflu, 0)) +
@@ -110,24 +110,22 @@ test_that("simulation works with no lag", {
 test_that("simulation works with lag", {
   pop <- sim_reference(
     init_pop_size = 1e6L,
-    vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
-    infections_novac = rep(0L, 304),
+    vaccinations = generate_counts(1e6L, 304L, 0.55, 150, 50),
+    infections_novac = generate_counts(1e6L, 304L, 0.35, 150, 35),
     ve = 0.48,
-    lag = 1L,
-    seed = 1L,
+    lag = 3L,
     deterministic = TRUE
   )
-  expect_equal(pop$B, pop$b)
-  pop <- sim_reference(
-    init_pop_size = 1e6L,
-    vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
-    infections_novac = rep(0L, 304),
-    ve = 0.48,
-    lag = 2L,
-    seed = 1L,
-    deterministic = TRUE
-  )
-  expect_equal(pop$B, pop$b + dplyr::lag(pop$b, default = 0L))
+  with(pop, {
+    b_1 <- b_og -
+      as.integer(round(b_og * dplyr::lead(pflu, n = 1L, default = 0L)))
+    b_2 <- b_1 -
+      as.integer(round(b_1 * dplyr::lead(pflu, n = 2L, default = 0L)))
+    expect_equal(
+      b, b_2 -
+        as.integer(round(b_2 * dplyr::lead(pflu, n = 3L, default = 0L)))
+    )
+  })
 })
 
 test_that("random simulation works", {

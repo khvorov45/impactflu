@@ -17,7 +17,7 @@ DataFrame sim_reference_cpp(const int init_pop_size,
   IntegerVector timepoint(nt);
   for (int i = 0; i < nt; i++) timepoint[i] = i + 1;
 
-  IntegerVector  popn(nt), b(nt), A(nt), B(nt),
+  IntegerVector popn(nt), b(nt), b_og(nt), A(nt),
     C(nt), D(nt), E(nt), F(nt), cases(nt), avert(nt);
   NumericVector pflu(nt), pvac(nt);
 
@@ -25,12 +25,13 @@ DataFrame sim_reference_cpp(const int init_pop_size,
   popn[0] = init_pop_size - infections_novac[0];
   pvac[0] = vaccinations[0] / double(init_pop_size);
   b[0] = my_rbinom(init_pop_size, pvac[0], deterministic);
+  b_og[0] = b[0];
   int A_to_E = my_rbinom(init_pop_size, pflu[0], deterministic);
   A[0] = init_pop_size - A_to_E - b[0];
   if (lag == 0) {
     C[0] = my_rbinom(b[0], 1 - ve[0], deterministic);
     D[0] = b[0] - C[0];
-  } else B[0] = b[0];
+  }
   E[0] = A_to_E;
   cases[0] = A_to_E;
   avert[0] = infections_novac[0] - cases[0];
@@ -40,21 +41,19 @@ DataFrame sim_reference_cpp(const int init_pop_size,
     popn[i] = popn[i - 1] - infections_novac[i];
     pvac[i] = double(vaccinations[i]) / (A[i - 1] + E[i - 1]);
     b[i] = my_rbinom(A[i - 1], pvac[i], deterministic);
+    b_og[i] = b[i];
     A_to_E = my_rbinom(A[i - 1], pflu[i], deterministic);
     cases[i] = A_to_E;
     A[i] = A[i - 1] - A_to_E - b[i];
-    B[i] = B[i - 1] + b[i];
     F[i] = F[i - 1];
     for (int j = 1; (j <= lag) && (i - j >= 0); j++) {
       int bimj_to_F = my_rbinom(b[i - j], pflu[i], deterministic);
       b[i - j] -= bimj_to_F;
-      B[i] -= bimj_to_F;
       F[i] += bimj_to_F;
       cases[i] += bimj_to_F;
     }
     int blag_to_C, blag_to_D;
     if (i - lag >= 0) {
-      B[i] -= b[i - lag];
       blag_to_C = my_rbinom(b[i - lag], 1 - ve[i], deterministic);
       blag_to_D = b[i - lag] - blag_to_C;
     } else blag_to_C = blag_to_D = 0;
@@ -77,8 +76,8 @@ DataFrame sim_reference_cpp(const int init_pop_size,
     _["popn"] = popn,
     _["pvac"] = pvac,
     _["b"] = b,
+    _["b_og"] = b_og,
     _["A"] = A,
-    _["B"] = B,
     _["C"] = C,
     _["D"] = D,
     _["E"] = E,
