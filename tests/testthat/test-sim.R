@@ -55,6 +55,7 @@ test_that("simulation works with no lag", {
     infections_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
     ve = 0.48,
     lag = 0L,
+    dur = 14L,
     seed = 1L,
     deterministic = TRUE
   )
@@ -114,6 +115,7 @@ test_that("simulation works with lag", {
     infections_novac = generate_counts(1e6L, 304L, 0.35, 150, 35),
     ve = 0.48,
     lag = 3L,
+    dur = 14L,
     deterministic = TRUE
   )
   with(pop, {
@@ -135,6 +137,7 @@ test_that("random simulation works", {
     infections_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
     ve = 0.48,
     lag = 0L,
+    dur = 14L,
     seed = 1L,
     deterministic = FALSE
   )
@@ -145,6 +148,7 @@ test_that("random simulation works", {
     infections_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
     ve = 0.48,
     lag = 0L,
+    dur = 14L,
     seed = 1L,
     deterministic = FALSE
   )
@@ -156,6 +160,7 @@ test_that("random simulation works", {
     infections_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
     ve = 0.48,
     lag = 0L,
+    dur = 14L,
     seed = 2L,
     deterministic = FALSE
   )

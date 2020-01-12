@@ -48,6 +48,7 @@ pop_tok <- sim_reference(
   infections_novac = generate_counts(nsam, ndays, 0.12, mean = 190, sd = 35),
   ve = 0.48,
   lag = 14,
+  dur = 14,
   deterministic = TRUE
 )
 

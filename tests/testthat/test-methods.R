@@ -11,6 +11,7 @@ pop <- sim_reference(
   infections_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
   ve = 0.48,
   lag = 0L,
+  dur = 14L,
   seed = 1L,
   deterministic = TRUE
 )

@@ -10,6 +10,7 @@ sim_reference(
   infections_novac,
   ve,
   lag,
+  dur,
   deterministic,
   seed = sample.int(.Machine$integer.max, 1)
 )
@@ -25,6 +26,8 @@ sim_reference(
 
 \item{lag}{Integer lag period measured in timepoints}
 
+\item{dur}{Integer infection duration measured in timepoints}
+
 \item{deterministic}{Boolean whether to make the simulation deterministic}
 
 \item{seed}{Integer seed to use}
@@ -39,9 +42,9 @@ A \link[tibble]{tibble} with the following columns:
   \item{cases}{Actual number of cases}
   \item{popn}{Non-cases in absence of vaccination}
   \item{pvac}{Proportion of starting population vaccinated}
-  \item{b}{Number vaccinated at that time}
+  \item{b}{Number vaccinated at that time who didn't get infected later}
+  \item{b_og}{Number vaccinated at that time}
   \item{A}{Non-vaccinated non-cases}
-  \item{B}{Vaccinated non-cases lagging}
   \item{E}{Non-vaccinated cases}
 }
 \description{
@@ -57,6 +60,7 @@ pop_tok <- sim_reference(
   infections_novac = generate_counts(nsam, ndays, 0.12, mean = 190, sd = 35),
   ve = 0.48,
   lag = 14,
+  dur = 14,
   deterministic = TRUE
 )
 head(pop_tok)

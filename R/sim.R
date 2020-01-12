@@ -1,7 +1,7 @@
 # Simulation functions
 # Arseniy Khvorov
 # Created 2019/12/24
-# Last edit 2020/01/10
+# Last edit 2020/01/13
 
 #' Simulate an ideal population
 #'
@@ -12,6 +12,7 @@
 #' @param infections_novac Integer vector number of cases at every timepoint
 #' @param ve Vaccine effectiveness (proportion)
 #' @param lag Integer lag period measured in timepoints
+#' @param dur Integer infection duration measured in timepoints
 #' @param deterministic Boolean whether to make the simulation deterministic
 #' @param seed Integer seed to use
 #'
@@ -24,9 +25,9 @@
 #'   \item{cases}{Actual number of cases}
 #'   \item{popn}{Non-cases in absence of vaccination}
 #'   \item{pvac}{Proportion of starting population vaccinated}
-#'   \item{b}{Number vaccinated at that time}
+#'   \item{b}{Number vaccinated at that time who didn't get infected later}
+#'   \item{b_og}{Number vaccinated at that time}
 #'   \item{A}{Non-vaccinated non-cases}
-#'   \item{B}{Vaccinated non-cases lagging}
 #'   \item{E}{Non-vaccinated cases}
 #'
 #' @references Tokars JI, Rolfes MA, Foppa IM, Reed C. An evaluation and update
@@ -48,6 +49,7 @@
 #'   infections_novac = generate_counts(nsam, ndays, 0.12, mean = 190, sd = 35),
 #'   ve = 0.48,
 #'   lag = 14,
+#'   dur = 14,
 #'   deterministic = TRUE
 #' )
 #' head(pop_tok)
@@ -57,6 +59,7 @@ sim_reference <- function(init_pop_size,
                           infections_novac,
                           ve,
                           lag,
+                          dur,
                           deterministic,
                           seed = sample.int(.Machine$integer.max, 1)) {
   set.seed(seed)
@@ -65,7 +68,7 @@ sim_reference <- function(init_pop_size,
   }
   check_counts(vaccinations, infections_novac, ve)
   ideal_pop <- sim_reference_cpp(
-    init_pop_size, vaccinations, infections_novac, ve, lag, deterministic
+    init_pop_size, vaccinations, infections_novac, ve, lag, dur, deterministic
   )
   attr(ideal_pop, "seed") <- seed
   attr(ideal_pop, "init_pop_size") <- init_pop_size
