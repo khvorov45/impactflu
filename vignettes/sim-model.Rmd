@@ -22,7 +22,7 @@ library(DiagrammeR)
 ## Compartments
 
 ```{r, echo = FALSE}
-model <- "sim-model.viz"
+model <- "sim-model.gv"
 grViz(model, width = 500, height = 500)
 ```
 
