@@ -1,6 +1,6 @@
 Package: impactflu
-Title: Quantification of population-level impact of vaccination
 Version: 0.1.0.9000
+Title: Quantification of Population-Level Impact of Vaccination
 Authors@R: 
     person(given = "Arseniy",
            family = "Khvorov",
