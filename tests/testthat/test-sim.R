@@ -61,7 +61,7 @@ test_that("simulation works with no lag", {
   expect_named(
     pop, c(
       "timepoint", "vaccinations", "infections_novac", "ve", "pflu",
-      "popn", "pvac", "b", "b_og", "A", "C", "D", "E", "F", "cases", "avert"
+      "popn", "pvac", "b", "b_og", "A", "C", "D", "E", "F", "infections", "avert"
   ))
   expect_equal(attr(pop, "seed"), 1L)
   expect_equal(attr(pop, "init_pop_size"), 1e6L)
@@ -70,12 +70,12 @@ test_that("simulation works with no lag", {
     expect_equal(timepoint, 1L:304L)
     expect_equal(pflu, infections_novac / dplyr::lag(popn, default = 1e6L))
     expect_equal(
-      cases,
+      infections,
       as.integer(round(pflu * dplyr::lag(A, default = 1e6L), 0)) +
       as.integer(round(pflu * dplyr::lag(C, default = 0L), 0))
     )
     expect_equal(popn, dplyr::lag(popn, default = 1e6L) - infections_novac)
-    expect_equal(avert, infections_novac - cases)
+    expect_equal(avert, infections_novac - infections)
     expect_equal(
       pvac, vaccinations /
         (dplyr::lag(A, default = 1e6L) + dplyr::lag(E, default = 0L))

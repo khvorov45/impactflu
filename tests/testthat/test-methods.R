@@ -23,7 +23,7 @@ pop_monthly <- pop %>%
   group_by(year, month) %>%
   summarise(
     vaccinations = sum(vaccinations),
-    cases = sum(cases),
+    infections = sum(infections),
     ve = mean(ve)
   ) %>%
   ungroup()
@@ -31,11 +31,11 @@ pop_monthly <- pop %>%
 test_that("method1 works", {
   m1 <- method1(
     attr(pop, "init_pop_size"),
-    pop_monthly$vaccinations, pop_monthly$cases, pop_monthly$ve
+    pop_monthly$vaccinations, pop_monthly$infections, pop_monthly$ve
   )
   with(m1, {
     expect_equal(vaccinations, pop_monthly$vaccinations)
-    expect_equal(cases, pop_monthly$cases)
+    expect_equal(cases, pop_monthly$infections)
     expect_equal(ve, pop_monthly$ve)
     expect_equal(vc_lag, (pvac + lag(pvac, default = 0)) / 2)
     expect_equal(
@@ -57,11 +57,11 @@ test_that("method1 works", {
 test_that("method3 works", {
   m3 <- method3(
     attr(pop, "init_pop_size"),
-    pop_monthly$vaccinations, pop_monthly$cases, pop_monthly$ve
+    pop_monthly$vaccinations, pop_monthly$infections, pop_monthly$ve
   )
   with(m3, {
     expect_equal(vaccinations, pop_monthly$vaccinations)
-    expect_equal(cases, pop_monthly$cases)
+    expect_equal(cases, pop_monthly$infections)
     expect_equal(ve, pop_monthly$ve)
     expect_equal(
       pflu, cases / (

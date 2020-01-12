@@ -18,7 +18,7 @@ DataFrame sim_reference_cpp(const int init_pop_size,
   for (int i = 0; i < nt; i++) timepoint[i] = i + 1;
 
   IntegerVector popn(nt), b(nt), b_og(nt), A(nt),
-    C(nt), D(nt), E(nt), F(nt), cases(nt), avert(nt);
+    C(nt), D(nt), E(nt), F(nt), infections(nt), avert(nt);
   NumericVector pflu(nt), pvac(nt);
 
   pflu[0] = infections_novac[0] / double(init_pop_size);
@@ -33,8 +33,8 @@ DataFrame sim_reference_cpp(const int init_pop_size,
     D[0] = b[0] - C[0];
   }
   E[0] = A_to_E;
-  cases[0] = A_to_E;
-  avert[0] = infections_novac[0] - cases[0];
+  infections[0] = A_to_E;
+  avert[0] = infections_novac[0] - infections[0];
 
   for (int i = 1; i < nt; i++) {
     pflu[i] = infections_novac[i] / double(popn[i - 1]);
@@ -43,14 +43,14 @@ DataFrame sim_reference_cpp(const int init_pop_size,
     b[i] = my_rbinom(A[i - 1], pvac[i], deterministic);
     b_og[i] = b[i];
     A_to_E = my_rbinom(A[i - 1], pflu[i], deterministic);
-    cases[i] = A_to_E;
+    infections[i] = A_to_E;
     A[i] = A[i - 1] - A_to_E - b[i];
     F[i] = F[i - 1];
     for (int j = 1; (j <= lag) && (i - j >= 0); j++) {
       int bimj_to_F = my_rbinom(b[i - j], pflu[i], deterministic);
       b[i - j] -= bimj_to_F;
       F[i] += bimj_to_F;
-      cases[i] += bimj_to_F;
+      infections[i] += bimj_to_F;
     }
     int blag_to_C, blag_to_D;
     if (i - lag >= 0) {
@@ -63,8 +63,8 @@ DataFrame sim_reference_cpp(const int init_pop_size,
     int E_to_F = vaccinations[i] - b[i];
     E[i] = E[i - 1] + A_to_E - E_to_F;
     F[i] += E_to_F + C_to_F;
-    cases[i] += C_to_F;
-    avert[i] = infections_novac[i] - cases[i];
+    infections[i] += C_to_F;
+    avert[i] = infections_novac[i] - infections[i];
   }
 
   DataFrame ideal_pop = DataFrame::create(
@@ -82,7 +82,7 @@ DataFrame sim_reference_cpp(const int init_pop_size,
     _["D"] = D,
     _["E"] = E,
     _["F"] = F,
-    _["cases"] = cases,
+    _["infections"] = infections,
     _["avert"] = avert
   );
   return ideal_pop;

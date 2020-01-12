@@ -70,6 +70,7 @@ sim_reference <- function(init_pop_size,
   attr(ideal_pop, "seed") <- seed
   attr(ideal_pop, "init_pop_size") <- init_pop_size
   attr(ideal_pop, "lag") <- lag
+  attr(ideal_pop, "deterministic") <- deterministic
   as_tibble(ideal_pop)
 }
 

@@ -64,16 +64,20 @@
 #'  ) %>%
 #'  group_by(year, month) %>%
 #'  summarise(
-#'    vaccinations = sum(vaccinations), cases = sum(cases), ve = mean(ve)
+#'    vaccinations = sum(vaccinations),
+#'    infections = sum(infections),
+#'    ve = mean(ve)
 #'  ) %>%
 #'  ungroup()
 #'
-#' # Estimate averted cases using the two different methods
+#' # Estimate averted infections using the two different methods
 #' m1 <- method1(
-#'   nsam, pop_tok_month$vaccinations, pop_tok_month$cases, pop_tok_month$ve
+#'   nsam, pop_tok_month$vaccinations,
+#'   pop_tok_month$infections, pop_tok_month$ve
 #' )
 #' m3 <- method3(
-#'   nsam, pop_tok_month$vaccinations, pop_tok_month$cases, pop_tok_month$ve
+#'   nsam, pop_tok_month$vaccinations,
+#'   pop_tok_month$infections, pop_tok_month$ve
 #' )
 #' sum(m1$avert)
 #' sum(m3$avert)
