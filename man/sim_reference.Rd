@@ -34,18 +34,41 @@ sim_reference(
 }
 \value{
 A \link[tibble]{tibble} with the following columns:
+
   \item{timepoint}{Index of timepoint}
+
   \item{vaccinations}{Expected number of vaccinations}
-  \item{infections_novac}{Expected number of cases in absence of vaccination}
+
+  \item{infections_novac}{Expected number of infections in absence of
+  vaccination}
+
   \item{ve}{Expected vaccine effectiveness}
+
   \item{pflu}{Flu incidence}
-  \item{cases}{Actual number of cases}
+
+  \item{infections}{Actual number of infections}
+
   \item{popn}{Non-cases in absence of vaccination}
+
   \item{pvac}{Proportion of starting population vaccinated}
+
   \item{b}{Number vaccinated at that time who didn't get infected later}
+
   \item{b_og}{Number vaccinated at that time}
+
   \item{A}{Non-vaccinated non-cases}
+
+  \item{C}{Vaccinated susceptible}
+
+  \item{D}{Vaccinated immune}
+
   \item{E}{Non-vaccinated cases}
+
+  \item{f}{Infections on that day that didn't die later}
+
+  \item{f_og}{Infections on that day}
+
+  \item{J}{Vaccinated recovered}
 }
 \description{
 Simulates an ideal population using the reference model from Tokars (2018).
