@@ -62,11 +62,13 @@ A \link[tibble]{tibble} with the following columns:
 
   \item{D}{Vaccinated immune}
 
-  \item{E}{Non-vaccinated cases}
+  \item{e}{Non-vaccinated infections on that day that didn't die later}
 
-  \item{f}{Infections on that day that didn't die later}
+  \item{e_og}{Non-vaccinated infections on that day}
 
-  \item{f_og}{Infections on that day}
+  \item{f}{Vaccinated infections on that day that didn't die later}
+
+  \item{f_og}{Vaccinated infections on that day}
 
   \item{J}{Vaccinated recovered}
 }
