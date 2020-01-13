@@ -67,7 +67,7 @@ test_that("simulation works with no lag, no deaths and 0 dur", {
     pop, c(
       "timepoint", "vaccinations", "infections_novac", "deaths_novac",
       "ve", "pflu", "popn", "pvac", "b", "b_og", "A", "C", "D", "e", "e_og",
-      "f", "f_og", "I", "J", "infections", "avert"
+      "f", "f_og", "I", "J", "infections", "currently_infected", "avert"
   ))
   expect_equal(attr(pop, "seed"), 1L)
   expect_equal(attr(pop, "init_pop_size"), 1e6L)
@@ -121,6 +121,7 @@ test_that("simulation works with no lag, no deaths and 0 dur", {
       J, dplyr::lag(J, default = 0L) + f +
         as.integer(round(dplyr::lag(I, default = 0L) * pvac, 0))
     )
+    expect_equal(currently_infected, rep(0L, 304L))
   })
 })
 
@@ -157,7 +158,7 @@ test_that("simulation works with lag", {
   })
 })
 
-test_that("simulation works with non-0 dur", {
+test_that("simulation works with non-0 dur, 0 lag and no deaths", {
   pop <- sim_reference(
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 150, 50),
@@ -176,6 +177,13 @@ test_that("simulation works with non-0 dur", {
     expect_equal(
       J, dplyr::lag(J, default = 0L) + dplyr::lag(f, n = 3L, default = 0L) +
         as.integer(round(dplyr::lag(I, default = 0L) * pvac))
+    )
+    expect_equal(
+      currently_infected, f + e +
+        dplyr::lag(f, n = 1L, default = 0L) +
+        dplyr::lag(e, n = 1L, default = 0L) +
+        dplyr::lag(f, n = 2L, default = 0L) +
+        dplyr::lag(e, n = 2L, default = 0L)
     )
   })
 })
