@@ -49,8 +49,8 @@ test_that("date generation works", {
 })
 
 test_that("simulation works with no lag, no deaths and 0 dur", {
-  vacs <- generate_counts(1e6L, 304L, 0.55, 100, 50)
-  infs <- generate_counts(1e6L, 304L, 0.12, 190, 35)
+  vacs <- generate_counts(1e6L, 304L, 0.55, 100, 100)
+  infs <- generate_counts(1e6L, 304L, 0.12, 100, 100)
   dths <- rep(0L, 304L)
   pop <- sim_reference(
     init_pop_size = 1e6L,
@@ -106,7 +106,7 @@ test_that("simulation works with no lag, no deaths and 0 dur", {
       D, dplyr::lag(D, default = 0L) + b - as.integer(round(b * (1 - ve), 0))
     )
     expect_equal(
-      e, as.integer(round(dplyr::lag(A, default = 0L) * pflu, 0))
+      e, as.integer(round(dplyr::lag(A, default = 1e6L) * pflu, 0))
     )
     expect_equal(e, e_og)
     expect_equal(

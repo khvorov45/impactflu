@@ -40,6 +40,9 @@ DataFrame sim_reference_cpp(const int init_pop_size,
   e_og[0] = e[0];
   infections[0] = A_to_E;
   if (dur > 0) currently_infected[0] = infections[0];
+  else {
+    I[0] = e[0];
+  }
   avert[0] = infections_novac[0] - infections[0];
 
   for (int i = 1; i < nt; i++) {
