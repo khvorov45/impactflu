@@ -49,11 +49,14 @@ test_that("date generation works", {
 })
 
 test_that("simulation works with no lag, no deaths and 0 dur", {
+  vacs <- generate_counts(1e6L, 304L, 0.55, 100, 50)
+  infs <- generate_counts(1e6L, 304L, 0.12, 190, 35)
+  dths <- rep(0L, 304L)
   pop <- sim_reference(
     init_pop_size = 1e6L,
-    vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
-    infections_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
-    deaths_novac = rep(0L, 304L),
+    vaccinations = vacs,
+    infections_novac = infs,
+    deaths_novac = dths,
     ve = 0.48,
     lag = 0L,
     dur = 0L,
@@ -72,6 +75,10 @@ test_that("simulation works with no lag, no deaths and 0 dur", {
   expect_equal(attr(pop, "deterministic"), TRUE)
   with(pop, {
     expect_equal(timepoint, 1L:304L)
+    expect_equal(vaccinations, vacs)
+    expect_equal(infections_novac, infs)
+    expect_equal(deaths_novac, dths)
+    expect_equal(ve, rep(0.48, 304L))
     expect_equal(pflu, infections_novac / dplyr::lag(popn, default = 1e6L))
     expect_equal(
       infections,
