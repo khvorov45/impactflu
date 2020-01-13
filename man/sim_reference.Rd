@@ -46,6 +46,9 @@ A \link[tibble]{tibble} with the following columns:
   \item{infections_novac}{Expected number of infections in absence of
   vaccination}
 
+  \item{deaths}{Expected number of deaths in absence of
+  vaccination}
+
   \item{ve}{Expected vaccine effectiveness}
 
   \item{pflu}{Flu incidence}

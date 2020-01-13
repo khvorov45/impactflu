@@ -86,6 +86,7 @@ DataFrame sim_reference_cpp(const int init_pop_size,
     _["timepoint"] = timepoint,
     _["vaccinations"] = vaccinations,
     _["infections_novac"] = infections_novac,
+    _["deaths_novac"] = deaths_novac,
     _["ve"] = ve,
     _["pflu"] = pflu,
     _["popn"] = popn,
@@ -101,8 +102,8 @@ DataFrame sim_reference_cpp(const int init_pop_size,
     _["f_og"] = f_og,
     _["I"] = I,
     _["J"] = J,
-    _["infections"] = infections,
-    _["avert"] = avert
+    _["infections"] = infections
   );
+  ideal_pop["avert"] = avert; // 20-arg limit in constructor
   return ideal_pop;
 }

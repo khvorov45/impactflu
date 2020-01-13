@@ -62,9 +62,9 @@ test_that("simulation works with no lag, no deaths and 0 dur", {
   )
   expect_named(
     pop, c(
-      "timepoint", "vaccinations", "infections_novac", "ve", "pflu",
-      "popn", "pvac", "b", "b_og", "A", "C", "D", "e", "e_og", "f", "f_og",
-      "I", "J", "infections", "avert"
+      "timepoint", "vaccinations", "infections_novac", "deaths_novac",
+      "ve", "pflu", "popn", "pvac", "b", "b_og", "A", "C", "D", "e", "e_og",
+      "f", "f_og", "I", "J", "infections", "avert"
   ))
   expect_equal(attr(pop, "seed"), 1L)
   expect_equal(attr(pop, "init_pop_size"), 1e6L)
