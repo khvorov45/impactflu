@@ -9,6 +9,7 @@ pop <- sim_reference(
   init_pop_size = 1e6L,
   vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
   infections_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
+  deaths_novac = rep(0L, 304L),
   ve = 0.48,
   lag = 0L,
   dur = 14L,

@@ -48,11 +48,12 @@ test_that("date generation works", {
   )
 })
 
-test_that("simulation works with no lag and 0 dur", {
+test_that("simulation works with no lag, no deaths and 0 dur", {
   pop <- sim_reference(
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
     infections_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
+    deaths_novac = rep(0L, 304L),
     ve = 0.48,
     lag = 0L,
     dur = 0L,
@@ -121,6 +122,7 @@ test_that("simulation works with lag", {
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 150, 50),
     infections_novac = generate_counts(1e6L, 304L, 0.35, 150, 35),
+    deaths_novac = rep(0L, 304L),
     ve = 0.48,
     lag = 3L,
     dur = 0L,
@@ -153,6 +155,7 @@ test_that("simulation works with non-0 dur", {
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 150, 50),
     infections_novac = generate_counts(1e6L, 304L, 0.35, 150, 35),
+    deaths_novac = rep(0L, 304L),
     ve = 0.48,
     lag = 0L,
     dur = 3L,
@@ -175,6 +178,7 @@ test_that("random simulation works", {
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
     infections_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
+    deaths_novac = rep(0L, 304L),
     ve = 0.48,
     lag = 0L,
     dur = 14L,
@@ -186,6 +190,7 @@ test_that("random simulation works", {
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
     infections_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
+    deaths_novac = rep(0L, 304L),
     ve = 0.48,
     lag = 0L,
     dur = 14L,
@@ -198,6 +203,7 @@ test_that("random simulation works", {
     init_pop_size = 1e6L,
     vaccinations = generate_counts(1e6L, 304L, 0.55, 100, 50),
     infections_novac = generate_counts(1e6L, 304L, 0.12, 190, 35),
+    deaths_novac = rep(0L, 304L),
     ve = 0.48,
     lag = 0L,
     dur = 14L,

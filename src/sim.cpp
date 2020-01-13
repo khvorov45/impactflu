@@ -10,6 +10,7 @@ int my_rbinom(int n, double p, bool deterministic) {
 DataFrame sim_reference_cpp(const int init_pop_size,
                             const IntegerVector& vaccinations,
                             const IntegerVector& infections_novac,
+                            const IntegerVector& deaths_novac,
                             const NumericVector& ve,
                             const int lag,
                             const int dur,
