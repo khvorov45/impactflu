@@ -98,7 +98,6 @@ sim_reference <- function(init_pop_size,
   if (length(ve) == 1) {
     ve <- rep(ve, length(vaccinations))
   }
-  check_counts(vaccinations, infections_novac, ve)
   ideal_pop <- sim_reference_cpp(
     init_pop_size, vaccinations, infections_novac, deaths_novac,
     ve, lag, dur, deterministic

@@ -3,9 +3,19 @@
 # Created 2020/01/03
 # Last edit 2020/01/03
 
-test_that("check_counts works", {
+test_that("check_input_methods works", {
   expect_error(
-    check_counts(
+    check_input_methods(
+      init_pop_size = -1,
+      vaccinations = 0,
+      cases = 0,
+      ve = 0.48
+    ),
+    "init_pop_size must be greater than 0"
+  )
+  expect_error(
+    check_input_methods(
+      init_pop_size = 100,
       vaccinations = 0,
       cases = 0,
       ve = 0.48
@@ -13,7 +23,8 @@ test_that("check_counts works", {
     "length of cases should be greater than 1"
   )
   expect_error(
-    check_counts(
+    check_input_methods(
+      init_pop_size = 100,
       vaccinations = 0,
       cases = generate_counts(1e6L, 304L, 0.12, 190, 35),
       ve = 0.48
@@ -24,7 +35,8 @@ test_that("check_counts works", {
     )
   )
   expect_error(
-    check_counts(
+    check_input_methods(
+      init_pop_size = 100,
       vaccinations = generate_counts(1e6L, 304L, 0.5, 50, 35),
       cases = generate_counts(1e6L, 304L, 0.12, 190, 35),
       ve = c(0.48, 0.52)

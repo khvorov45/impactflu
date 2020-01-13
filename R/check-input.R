@@ -13,7 +13,9 @@
 #' @importFrom glue glue
 #'
 #' @noRd
-check_counts <- function(vaccinations, cases, ve) {
+check_input_methods <- function(init_pop_size, vaccinations, cases, ve) {
+  if (init_pop_size <= 0L)
+    abort("init_pop_size must be greater than 0")
   if (length(cases) == 1)
     abort("length of cases should be greater than 1")
   if (length(vaccinations) != length(cases))
