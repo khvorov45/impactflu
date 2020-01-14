@@ -121,7 +121,7 @@ test_that("simulation works with no lag, no deaths and 0 dur", {
       J, dplyr::lag(J, default = 0L) + f +
         as.integer(round(dplyr::lag(I, default = 0L) * pvac, 0))
     )
-    expect_equal(currently_infected, rep(0L, 304L))
+    expect_equal(currently_infected, infections)
   })
 })
 
@@ -183,7 +183,9 @@ test_that("simulation works with non-0 dur, 0 lag and no deaths", {
         dplyr::lag(f, n = 1L, default = 0L) +
         dplyr::lag(e, n = 1L, default = 0L) +
         dplyr::lag(f, n = 2L, default = 0L) +
-        dplyr::lag(e, n = 2L, default = 0L)
+        dplyr::lag(e, n = 2L, default = 0L) +
+        dplyr::lag(f, n = 3L, default = 0L) +
+        dplyr::lag(e, n = 3L, default = 0L)
     )
   })
 })

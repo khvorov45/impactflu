@@ -39,10 +39,8 @@ DataFrame sim_reference_cpp(const int init_pop_size,
   e[0] = A_to_E;
   e_og[0] = e[0];
   infections[0] = A_to_E;
-  if (dur > 0) currently_infected[0] = infections[0];
-  else {
-    I[0] = e[0];
-  }
+  currently_infected[0] = infections[0];
+  if (dur == 0) I[0] = e[0];
   avert[0] = infections_novac[0] - infections[0];
 
   for (int i = 1; i < nt; i++) {
@@ -80,9 +78,9 @@ DataFrame sim_reference_cpp(const int init_pop_size,
       int edur_to_I = e[i - dur];
       J[i] += fdur_to_J;
       I[i] += edur_to_I;
-      currently_infected[i] = currently_infected[i - 1] + infections[i] -
-        fdur_to_J - edur_to_I;
+      currently_infected[i] = currently_infected[i - 1] + infections[i];
     }
+    if (i - dur >= 1) currently_infected[i] -= infections[i - (dur + 1)];
     int I_to_J = vaccinations[i] - b[i];
     I[i] -= I_to_J;
     J[i] += I_to_J;
