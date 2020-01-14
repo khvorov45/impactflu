@@ -1,8 +1,8 @@
 ---
-title: "Simulation (reference) model"
+title: "Reference model"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{sim-model}
+  %\VignetteIndexEntry{ref-model}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -22,7 +22,7 @@ library(DiagrammeR)
 ## Compartments
 
 ```{r, echo = FALSE}
-model <- "sim-model.gv"
+model <- "ref-model.gv"
 grViz(model, width = 500, height = 500)
 ```
 
