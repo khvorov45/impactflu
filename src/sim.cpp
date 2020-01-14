@@ -10,7 +10,6 @@ int my_rbinom(int n, double p, bool deterministic) {
 DataFrame sim_reference_cpp(const int init_pop_size,
                             const IntegerVector& vaccinations,
                             const IntegerVector& infections_novac,
-                            const IntegerVector& deaths_novac,
                             const NumericVector& ve,
                             const int lag,
                             const int dur,
@@ -87,7 +86,6 @@ DataFrame sim_reference_cpp(const int init_pop_size,
     _["timepoint"] = timepoint,
     _["vaccinations"] = vaccinations,
     _["infections_novac"] = infections_novac,
-    _["deaths_novac"] = deaths_novac,
     _["ve"] = ve,
     _["pflu"] = pflu,
     _["popn"] = popn,
@@ -103,8 +101,8 @@ DataFrame sim_reference_cpp(const int init_pop_size,
     _["f_og"] = f_og,
     _["I"] = I,
     _["J"] = J,
-    _["infections"] = infections
+    _["infections"] = infections,
+    _["avert"] = avert
   );
-  ideal_pop["avert"] = avert;
   return ideal_pop;
 }

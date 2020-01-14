@@ -11,7 +11,6 @@
 #' @param vaccinations Integer vector number of vaccinations at every timepoint
 #' @param infections_novac Integer vector number of infections at every
 #'   timepoint
-#' @param deaths_novac Integer vector number of deaths at every timepoint
 #' @param ve Vaccine effectiveness (proportion)
 #' @param lag Integer lag period measured in timepoints
 #' @param dur Integer infection duration measured in timepoints
@@ -77,7 +76,6 @@
 #'   init_pop_size = nsam,
 #'   vaccinations = generate_counts(nsam, ndays, 0.55, mean = 100, sd = 50),
 #'   infections_novac = generate_counts(nsam, ndays, 0.12, mean = 190, sd = 35),
-#'   deaths_novac = rep(0L, ndays),
 #'   ve = 0.48,
 #'   lag = 14,
 #'   dur = 14,
@@ -88,7 +86,6 @@
 sim_reference <- function(init_pop_size,
                           vaccinations,
                           infections_novac,
-                          deaths_novac,
                           ve,
                           lag,
                           dur,
@@ -99,7 +96,7 @@ sim_reference <- function(init_pop_size,
     ve <- rep(ve, length(vaccinations))
   }
   ideal_pop <- sim_reference_cpp(
-    init_pop_size, vaccinations, infections_novac, deaths_novac,
+    init_pop_size, vaccinations, infections_novac,
     ve, lag, dur, deterministic
   )
   attr(ideal_pop, "seed") <- seed
