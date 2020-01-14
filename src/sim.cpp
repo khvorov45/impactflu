@@ -20,9 +20,8 @@ DataFrame sim_reference_cpp(const int init_pop_size,
   for (int i = 0; i < nt; i++) timepoint[i] = i + 1;
 
   IntegerVector popn(nt), b(nt), b_og(nt), A(nt),
-    C(nt), D(nt), e(nt), e_og(nt),
-    f(nt), f_og(nt), J(nt), I(nt), infections(nt), avert(nt),
-    currently_infected(nt);
+    C(nt), D(nt), e(nt), e_og(nt), f(nt), f_og(nt),
+    G(nt), H(nt), I(nt), J(nt), infections(nt), avert(nt);
   NumericVector pflu(nt), pvac(nt);
 
   pflu[0] = infections_novac[0] / double(init_pop_size);
@@ -39,7 +38,6 @@ DataFrame sim_reference_cpp(const int init_pop_size,
   e[0] = A_to_E;
   e_og[0] = e[0];
   infections[0] = A_to_E;
-  currently_infected[0] = infections[0];
   if (dur == 0) I[0] = e[0];
   avert[0] = infections_novac[0] - infections[0];
 
@@ -78,9 +76,7 @@ DataFrame sim_reference_cpp(const int init_pop_size,
       int edur_to_I = e[i - dur];
       J[i] += fdur_to_J;
       I[i] += edur_to_I;
-      currently_infected[i] = currently_infected[i - 1] + infections[i];
     }
-    if (i - dur >= 1) currently_infected[i] -= infections[i - (dur + 1)];
     int I_to_J = vaccinations[i] - b[i];
     I[i] -= I_to_J;
     J[i] += I_to_J;
@@ -109,7 +105,6 @@ DataFrame sim_reference_cpp(const int init_pop_size,
     _["J"] = J,
     _["infections"] = infections
   );
-  ideal_pop["currently_infected"] = currently_infected;
   ideal_pop["avert"] = avert;
   return ideal_pop;
 }
