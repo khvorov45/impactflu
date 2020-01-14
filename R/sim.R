@@ -1,7 +1,7 @@
 # Simulation functions
 # Arseniy Khvorov
 # Created 2019/12/24
-# Last edit 2020/01/13
+# Last edit 2020/01/15
 
 #' Simulate an ideal population
 #'
@@ -13,9 +13,6 @@
 #'   timepoint
 #' @param ve Vaccine effectiveness (proportion)
 #' @param lag Integer lag period measured in timepoints
-#' @param dur Integer infection duration measured in timepoints
-#' @param deterministic Boolean whether to make the simulation deterministic
-#' @param seed Integer seed to use
 #'
 #' @return A \link[tibble]{tibble} with the following columns:
 #'
@@ -24,9 +21,6 @@
 #'   \item{vaccinations}{Expected number of vaccinations}
 #'
 #'   \item{infections_novac}{Expected number of infections in absence of
-#'   vaccination}
-#'
-#'   \item{deaths}{Expected number of deaths in absence of
 #'   vaccination}
 #'
 #'   \item{ve}{Expected vaccine effectiveness}
@@ -49,15 +43,9 @@
 #'
 #'   \item{D}{Vaccinated immune}
 #'
-#'   \item{e}{Non-vaccinated infections on that day that didn't die later}
+#'   \item{E}{Non-vaccinated infections cumulative total}
 #'
-#'   \item{e_og}{Non-vaccinated infections on that day}
-#'
-#'   \item{f}{Vaccinated infections on that day that didn't die later}
-#'
-#'   \item{f_og}{Vaccinated infections on that day}
-#'
-#'   \item{J}{Vaccinated recovered}
+#'   \item{F}{Vaccinated infections cumulative total}
 #'
 #' @references Tokars JI, Rolfes MA, Foppa IM, Reed C. An evaluation and update
 #'   of methods for estimating the number of influenza cases averted by
@@ -77,9 +65,7 @@
 #'   vaccinations = generate_counts(nsam, ndays, 0.55, mean = 100, sd = 50),
 #'   infections_novac = generate_counts(nsam, ndays, 0.12, mean = 190, sd = 35),
 #'   ve = 0.48,
-#'   lag = 14,
-#'   dur = 14,
-#'   deterministic = TRUE
+#'   lag = 14
 #' )
 #' head(pop_tok)
 #' sum(pop_tok$avert)
@@ -87,22 +73,13 @@ sim_reference <- function(init_pop_size,
                           vaccinations,
                           infections_novac,
                           ve,
-                          lag,
-                          dur,
-                          deterministic,
-                          seed = sample.int(.Machine$integer.max, 1)) {
-  set.seed(seed)
-  if (length(ve) == 1) {
-    ve <- rep(ve, length(vaccinations))
-  }
+                          lag) {
+  if (length(ve) == 1) ve <- rep(ve, length(vaccinations))
   ideal_pop <- sim_reference_cpp(
-    init_pop_size, vaccinations, infections_novac,
-    ve, lag, dur, deterministic
+    init_pop_size, vaccinations, infections_novac, ve, lag
   )
-  attr(ideal_pop, "seed") <- seed
   attr(ideal_pop, "init_pop_size") <- init_pop_size
   attr(ideal_pop, "lag") <- lag
-  attr(ideal_pop, "deterministic") <- deterministic
   as_tibble(ideal_pop)
 }
 

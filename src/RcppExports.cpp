@@ -34,8 +34,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // sim_reference_cpp
-DataFrame sim_reference_cpp(const int init_pop_size, const IntegerVector& vaccinations, const IntegerVector& infections_novac, const NumericVector& ve, const int lag, const int dur, const bool deterministic);
-RcppExport SEXP _impactflu_sim_reference_cpp(SEXP init_pop_sizeSEXP, SEXP vaccinationsSEXP, SEXP infections_novacSEXP, SEXP veSEXP, SEXP lagSEXP, SEXP durSEXP, SEXP deterministicSEXP) {
+DataFrame sim_reference_cpp(const int init_pop_size, const IntegerVector& vaccinations, const IntegerVector& infections_novac, const NumericVector& ve, const int lag);
+RcppExport SEXP _impactflu_sim_reference_cpp(SEXP init_pop_sizeSEXP, SEXP vaccinationsSEXP, SEXP infections_novacSEXP, SEXP veSEXP, SEXP lagSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -44,9 +44,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const IntegerVector& >::type infections_novac(infections_novacSEXP);
     Rcpp::traits::input_parameter< const NumericVector& >::type ve(veSEXP);
     Rcpp::traits::input_parameter< const int >::type lag(lagSEXP);
-    Rcpp::traits::input_parameter< const int >::type dur(durSEXP);
-    Rcpp::traits::input_parameter< const bool >::type deterministic(deterministicSEXP);
-    rcpp_result_gen = Rcpp::wrap(sim_reference_cpp(init_pop_size, vaccinations, infections_novac, ve, lag, dur, deterministic));
+    rcpp_result_gen = Rcpp::wrap(sim_reference_cpp(init_pop_size, vaccinations, infections_novac, ve, lag));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -54,7 +52,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_impactflu_method1_cpp", (DL_FUNC) &_impactflu_method1_cpp, 4},
     {"_impactflu_method3_cpp", (DL_FUNC) &_impactflu_method3_cpp, 4},
-    {"_impactflu_sim_reference_cpp", (DL_FUNC) &_impactflu_sim_reference_cpp, 7},
+    {"_impactflu_sim_reference_cpp", (DL_FUNC) &_impactflu_sim_reference_cpp, 5},
     {NULL, NULL, 0}
 };
 

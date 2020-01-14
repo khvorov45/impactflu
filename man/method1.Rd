@@ -47,9 +47,7 @@ pop_tok <- sim_reference(
   vaccinations = generate_counts(nsam, ndays, 0.55, mean = 100, sd = 50),
   infections_novac = generate_counts(nsam, ndays, 0.12, mean = 190, sd = 35),
   ve = 0.48,
-  lag = 14,
-  dur = 14,
-  deterministic = TRUE
+  lag = 14
 )
 
 # Summarise by month

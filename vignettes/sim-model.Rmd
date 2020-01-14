@@ -27,15 +27,11 @@ grViz(model, width = 500, height = 500)
 ```
 
 $d$ --- day index.\
-$g$ --- vaccination lag period.\
-$h$ --- duration of infection.\
-$w_d$ --- vaccine effectiveness on day $d$.\
+$g$ --- vaccination lag period (given).\
+$w_d$ --- vaccine effectiveness on day $d$ (given).\
 $v_d$ --- vaccine coverage on day $d$.\
 $r_d$ --- flu incidence on day $d$.\
-$m_d$ --- flu mortality on day $d$.\
 $b_d$ --- number of vaccinations of susceptible on day $d$.\
-$e_d$ --- number of infections of non-vaccinated on day $d$.\
-$f_d$ --- number of infections of vaccinated on day $d$.\
 
 ## Calculations
 
@@ -43,58 +39,36 @@ $d=0$ --- initial conditions.\
 $d=1$ --- first timepoint (day) for which we have data.\
 $N$ --- starting population size (given).\
 $V_d$ --- vaccinations on day $d$ (given).\
-$S_d^*$ --- infections on day $d$ in absence of vaccination (given).\
-$e_d$ --- vaccine effectiveness on day $d$ (given).\
+$s_d^*$ --- infections on day $d$ in absence of vaccination (given).\
 $P_d^*$ --- susceptible population on day $d$ in absence of vaccination.\
-$S_d^a$ --- averted infections on day $d$.\
-$S_d$ --- infections on day $d$.\
-$Q_d^*$ --- deaths on day $d$ in absence of vaccination (given).\
-$Q_d$ --- deaths on day $d$.\
-$Q_d^a$ --- averted deaths on day $d$.\
+$s_d^a$ --- averted infections on day $d$.\
+$s_d$ --- infections on day $d$.\
 
 For $d=0$:
 
 $A_0 = N$\
-$B_0 = 0$\
+$b_0 = 0$\
 $C_0 = 0$\
 $D_0 = 0$\
 $E_0 = 0$\
 $F_0 = 0$\
-$G_0 = 0$\
-$H_0 = 0$\
 $P_0^* = N$\
-$S_0 = 0$\
-$S_0^a = 0$\
-$Q_0 = 0$\
-$Q_0^a = 0$\
+$s_0 = 0$\
+$s_0^a = 0$\
 
 For $d>0$ (order presented corresponds to the order of calculations):
 
-$r_d = \frac{S_d^*}{P_{d-1}^*}$\
-$m_d = \frac{Q_d^*}{P_{d-1}^*}$\
-$S_d=r_dA_{d-1} + r_dC_{d-1} + r_db_{d-1...d-g}$\
-$Q_d=m_dE_{d-1} + m_dF_{d-1}$\
-$P_d^* = P_{d-1}^* - S_d^* - Q_d^*$\
-$S_d^a = S_d^* - S_d$\
-$Q_d^a = Q_d^* - Q_d$\
-$v_d = \frac{V_d}{A_{d-1}+I_{d-1}}$\
-$b_d=v_dA_{d-1}$\
-$A_d = A_{d-1} - r_dA_{d-1}-b_d$\
-$b_{d-1} ... b_{d-g}=b_{d-1} ... b_{d-g} - r_db_{d-1} ... b_{d-g}$\
-$C_d = C_{d-1} - r_dC_d + b_{d-g} - w_db_{d-g}$\
-$D_d = D_{d-1} + w_db_{d-g}$\
-$e_d=r_dA_{d-1}$\
-$e_{d} ... e_{d-h}=e_{d} ... e_{d-h} - m_de_{d} ... e_{d-h}$\
-$I_d=I_{d-1}+e_{d-h}-v_dI_{d-1}$\
-<!--The dead are already subtracted-->
-$G_d=G_{d-1}+m_de_{d} ... e_{d-h}$\
-$f_d=r_dC_{d-1} + r_db_{d-1} ... b_{d-g}$\
-$f_{d} ... f_{d-h}=f_{d} ... f_{d-h} - m_df_{d} ... f_{d-h}$\
-$H_d = H_{d-1} + m_df_{d} ... f_{d-h}$\
-$J_d = J_{d-1} + f_{d-h} + v_dI_{d-1}$<!--The dead are already subtracted-->
+1. $r_d = \frac{s_d^*}{P_{d-1}^*}$\
+2. $s_d=r_dA_{d-1} + r_dC_{d-1} + r_db_{d-1...d-g}$\
+3. $P_d^* = P_{d-1}^* - s_d^*$\
+4. $s_d^a = s_d^* - s_d$\
+5. $v_d = \frac{V_d}{A_{d-1}+E_{d-1}}$\
+6. $b_d=v_dA_{d-1}$\
+7. $A_d = A_{d-1} - r_dA_{d-1}-b_d$\
+8. $b_{d-1} ... b_{d-g}=b_{d-1} ... b_{d-g} - r_db_{d-1} ... b_{d-g}$\
+9. $C_d = C_{d-1} - r_dC_d + b_{d-g} - w_db_{d-g}$\
+10. $D_d = D_{d-1} + w_db_{d-g}$\
+11. $E_d=E_{d-1} + r_dA_{d-1} - v_dE_{d-1}$\
+12. $F_d=F_{d-1} + r_dC_{d-1} + r_db_{d-1} ... b_{d-g} + v_dE_{d-1}$\
 
-Line $b_{d-1} ... b_{d-g}$ (and similar) means that the same calculation is done on each $b_{d-i}$ from $i=1$ to $i=g$. The calculation being (in this case) $b_{d-i}=b_{d-i}-r_db_{d-i}$.
-
-When simualtions are random, each multiplication of a compartment by a probability e.g. $r_dA_{d-1}$, becomes a binomial random number e.g. $\text{Binomial}(A_{d-1}, r_d)$).
-
-Note that $f_{d-h}$ is added to $J_d$ (not $(1-m_d)f_{d-h}$) because those who died have already been subtracted from $f_{d-h}$ by the time the calculation on $J_d$ is done. Similar reasoning applies to $I_d$.
+Line $b_{d-1} ... b_{d-g}$ means that the same calculation is done on each $b_{d-i}$ from $i=1$ to $i=g$. The calculation being (in line 8) $b_{d-i}=b_{d-i}-r_db_{d-i}$.

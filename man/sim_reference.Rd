@@ -4,16 +4,7 @@
 \alias{sim_reference}
 \title{Simulate an ideal population}
 \usage{
-sim_reference(
-  init_pop_size,
-  vaccinations,
-  infections_novac,
-  ve,
-  lag,
-  dur,
-  deterministic,
-  seed = sample.int(.Machine$integer.max, 1)
-)
+sim_reference(init_pop_size, vaccinations, infections_novac, ve, lag)
 }
 \arguments{
 \item{init_pop_size}{Integer initial population size}
@@ -26,12 +17,6 @@ timepoint}
 \item{ve}{Vaccine effectiveness (proportion)}
 
 \item{lag}{Integer lag period measured in timepoints}
-
-\item{dur}{Integer infection duration measured in timepoints}
-
-\item{deterministic}{Boolean whether to make the simulation deterministic}
-
-\item{seed}{Integer seed to use}
 }
 \value{
 A \link[tibble]{tibble} with the following columns:
@@ -41,9 +26,6 @@ A \link[tibble]{tibble} with the following columns:
   \item{vaccinations}{Expected number of vaccinations}
 
   \item{infections_novac}{Expected number of infections in absence of
-  vaccination}
-
-  \item{deaths}{Expected number of deaths in absence of
   vaccination}
 
   \item{ve}{Expected vaccine effectiveness}
@@ -66,15 +48,9 @@ A \link[tibble]{tibble} with the following columns:
 
   \item{D}{Vaccinated immune}
 
-  \item{e}{Non-vaccinated infections on that day that didn't die later}
+  \item{E}{Non-vaccinated infections cumulative total}
 
-  \item{e_og}{Non-vaccinated infections on that day}
-
-  \item{f}{Vaccinated infections on that day that didn't die later}
-
-  \item{f_og}{Vaccinated infections on that day}
-
-  \item{J}{Vaccinated recovered}
+  \item{F}{Vaccinated infections cumulative total}
 }
 \description{
 Simulates an ideal population using the reference model from Tokars (2018).
@@ -88,9 +64,7 @@ pop_tok <- sim_reference(
   vaccinations = generate_counts(nsam, ndays, 0.55, mean = 100, sd = 50),
   infections_novac = generate_counts(nsam, ndays, 0.12, mean = 190, sd = 35),
   ve = 0.48,
-  lag = 14,
-  dur = 14,
-  deterministic = TRUE
+  lag = 14
 )
 head(pop_tok)
 sum(pop_tok$avert)
