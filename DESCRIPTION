@@ -25,10 +25,12 @@ Imports:
     rlang,
     glue,
     lubridate,
-    magrittr,
-    DiagrammeR
+    magrittr
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
-    rmarkdown
+    rmarkdown,
+    DiagrammeR,
+    DiagrammeRsvg,
+    rsvg
 VignetteBuilder: knitr

@@ -21,10 +21,7 @@ library(DiagrammeR)
 
 ## Compartments
 
-```{r, echo = FALSE}
-model <- "ref-model.gv"
-grViz(model, width = 500, height = 500)
-```
+![](ref-model-chart.svg)
 
 $d$ --- day index.\
 $g$ --- vaccination lag period (given).\
