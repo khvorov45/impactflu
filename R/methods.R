@@ -1,8 +1,3 @@
-# Methods from Tokars (2018)
-# Arseniy Khvorov
-# Created 2020/01/03
-# Last edit 2020/01/03
-
 #' Analysis methods from Tokars (2018)
 #'
 #' Method 1 was said to be as current. Method 3 was determined to be the least
@@ -60,14 +55,14 @@
 #'     ),
 #'     year = lubridate::year(datestamp),
 #'     month = lubridate::month(datestamp)
-#'  ) %>%
-#'  group_by(year, month) %>%
-#'  summarise(
-#'    vaccinations = sum(vaccinations),
-#'    infections = sum(infections),
-#'    ve = mean(ve)
-#'  ) %>%
-#'  ungroup()
+#'   ) %>%
+#'   group_by(year, month) %>%
+#'   summarise(
+#'     vaccinations = sum(vaccinations),
+#'     infections = sum(infections),
+#'     ve = mean(ve)
+#'   ) %>%
+#'   ungroup()
 #'
 #' # Estimate averted infections using the two different methods
 #' m1 <- method1(

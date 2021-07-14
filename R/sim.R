@@ -1,8 +1,3 @@
-# Simulation functions
-# Arseniy Khvorov
-# Created 2019/12/24
-# Last edit 2020/01/15
-
 #' Simulate an ideal population
 #'
 #' Simulates an ideal population using the reference model from Tokars (2018).

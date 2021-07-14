@@ -2,14 +2,20 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-DataFrame sim_reference_cpp(const int init_pop_size,
-                            const IntegerVector& vaccinations,
-                            const IntegerVector& infections_novac,
-                            const NumericVector& ve,
-                            const int lag) {
+DataFrame sim_reference_cpp(
+  const int init_pop_size,
+  const IntegerVector& vaccinations,
+  const IntegerVector& infections_novac,
+  const NumericVector& ve,
+  const int lag
+) {
+
   int nt = vaccinations.size();
+
   IntegerVector timepoint(nt);
-  for (int i = 0; i < nt; i++) timepoint[i] = i + 1;
+  for (int i = 0; i < nt; i++) {
+    timepoint[i] = i + 1;
+  }
 
   IntegerVector popn(nt), A(nt), b(nt), b_og(nt),
     C(nt), D(nt), E(nt), F(nt), infections(nt), avert(nt);
@@ -53,7 +59,9 @@ DataFrame sim_reference_cpp(const int init_pop_size,
     if (i - lag >= 0) {
       blag_to_C = b[i - lag] - R::fround(b[i - lag] * ve[i], 0);
       blag_to_D = b[i - lag] - blag_to_C;
-    } else blag_to_C = blag_to_D = 0;
+    } else {
+      blag_to_C = blag_to_D = 0;
+    }
     C[i] = C[i - 1] - C_to_F + blag_to_C;
     D[i] = D[i - 1] + blag_to_D;
     int E_to_F = R::fround(E[i - 1] * pvac[i], 0);
@@ -79,5 +87,6 @@ DataFrame sim_reference_cpp(const int init_pop_size,
     _["infections"] = infections,
     _["avert"] = avert
   );
+
   return ideal_pop;
 }
