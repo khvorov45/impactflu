@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // method1_cpp
 DataFrame method1_cpp(const int init_pop_size, const IntegerVector& vaccinations, const IntegerVector& cases, const NumericVector& ve);
 RcppExport SEXP _impactflu_method1_cpp(SEXP init_pop_sizeSEXP, SEXP vaccinationsSEXP, SEXP casesSEXP, SEXP veSEXP) {
