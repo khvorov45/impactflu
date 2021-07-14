@@ -1,8 +1,3 @@
-# Verify that errors are generated appropriately
-# Arseniy Khvorov
-# Created 2020/01/03
-# Last edit 2020/01/03
-
 test_that("check_input_methods works", {
   expect_error(
     check_input_methods(

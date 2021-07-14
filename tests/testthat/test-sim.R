@@ -1,10 +1,3 @@
-# Tests of simulation functions
-# Arseniy Khvorov
-# Created 2019/12/24
-# Last edit 2019/12/24
-
-library(testthat)
-
 test_that("count generation works", {
   set.seed(1)
   test_counts <- generate_counts(
@@ -63,7 +56,8 @@ test_that("simulation works with no lag", {
       "timepoint", "vaccinations", "infections_novac",
       "ve", "pflu", "popn", "pvac", "b", "b_og", "A", "C", "D", "E",
       "F", "infections", "avert"
-  ))
+    )
+  )
   expect_equal(attr(pop, "init_pop_size"), 1e6L)
   expect_equal(attr(pop, "lag"), 0L)
   with(pop, {
@@ -75,7 +69,7 @@ test_that("simulation works with no lag", {
     expect_equal(
       infections,
       as.integer(round(pflu * dplyr::lag(A, default = 1e6L), 0)) +
-      as.integer(round(pflu * dplyr::lag(C, default = 0L), 0))
+        as.integer(round(pflu * dplyr::lag(C, default = 0L), 0))
     )
     expect_equal(popn, dplyr::lag(popn, default = 1e6L) - infections_novac)
     expect_equal(avert, infections_novac - infections)

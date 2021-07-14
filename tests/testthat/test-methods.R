@@ -1,8 +1,3 @@
-# Tests of methods
-# Arseniy Khvorov
-# Created 2020/01/03
-# Last edit 2020/01/03
-
 library(dplyr)
 
 pop <- sim_reference(
@@ -12,6 +7,7 @@ pop <- sim_reference(
   ve = 0.48,
   lag = 0L
 )
+
 pop_monthly <- pop %>%
   mutate(
     dates = generate_dates(timepoint, lubridate::ymd("2017/08/01"), "day"),
@@ -20,6 +16,7 @@ pop_monthly <- pop %>%
   ) %>%
   group_by(year, month) %>%
   summarise(
+    .groups = "drop",
     vaccinations = sum(vaccinations),
     infections = sum(infections),
     ve = mean(ve)
@@ -64,11 +61,13 @@ test_that("method3 works", {
     expect_equal(
       pflu, cases / (
         lag(A, default = attr(pop, "init_pop_size")) + lag(C, default = 0L)
-    ))
+      )
+    )
     expect_equal(
       pvac, vaccinations / (
         lag(A, default = attr(pop, "init_pop_size")) + lag(E, default = 0L)
-      ))
+      )
+    )
     expect_equal(
       b, as.integer(round(
         pvac * lag(A, default = attr(pop, "init_pop_size"))
