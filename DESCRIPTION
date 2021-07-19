@@ -1,24 +1,24 @@
 Package: impactflu
 Version: 0.1.0.9000
 Title: Quantification of Population-Level Impact of Vaccination
-Authors@R: 
+Authors@R:
     person(given = "Arseniy",
            family = "Khvorov",
            role = c("aut", "cre"),
            email = "khvorov45@gmail.com")
-Description: 
-  Implements the compartment model from Tokars (2018) 
-  <doi:10.1016/j.vaccine.2018.10.026>. This enables quantification of 
-  population-wide impact of vaccination against vaccine-preventable 
+Description:
+  Implements the compartment model from Tokars (2018)
+  <doi:10.1016/j.vaccine.2018.10.026>. This enables quantification of
+  population-wide impact of vaccination against vaccine-preventable
   diseases such as influenza.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.6.0)
 RoxygenNote: 7.0.2
-LinkingTo: 
+LinkingTo:
     Rcpp
-Imports: 
+Imports:
     Rcpp,
     tibble,
     dplyr,
@@ -26,7 +26,7 @@ Imports:
     glue,
     lubridate,
     magrittr
-Suggests: 
+Suggests:
     testthat (>= 2.1.0),
     knitr,
     rmarkdown,
