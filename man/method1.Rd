@@ -58,14 +58,14 @@ pop_tok_month <- pop_tok \%>\%
     ),
     year = lubridate::year(datestamp),
     month = lubridate::month(datestamp)
- ) \%>\%
- group_by(year, month) \%>\%
- summarise(
-   vaccinations = sum(vaccinations),
-   infections = sum(infections),
-   ve = mean(ve)
- ) \%>\%
- ungroup()
+  ) \%>\%
+  group_by(year, month) \%>\%
+  summarise(
+    vaccinations = sum(vaccinations),
+    infections = sum(infections),
+    ve = mean(ve)
+  ) \%>\%
+  ungroup()
 
 # Estimate averted infections using the two different methods
 m1 <- method1(
