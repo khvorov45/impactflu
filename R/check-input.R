@@ -21,7 +21,7 @@ check_input_methods <- function(init_pop_size, vaccinations, cases, ve) {
       "vaccinations ({length(vaccinations)})"
     ))
   }
-  if (length(ve) != length(vaccinations)) {
+  if (length(ve) != 1 && length(ve) != length(vaccinations)) {
     abort(glue(
       "length of ve ({length(ve)}) should be either 1 or the same as ",
       "the length of vaccinations and cases ({length(cases)})"

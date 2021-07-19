@@ -41,4 +41,13 @@ test_that("check_input_methods works", {
       "the length of vaccinations and cases \\(304\\)"
     )
   )
+  expect_error(
+    check_input_methods(
+      init_pop_size = 100,
+      vaccinations = generate_counts(1e6L, 304L, 0.5, 50, 35),
+      cases = generate_counts(1e6L, 304L, 0.12, 190, 35),
+      ve = c(0.48)
+    ),
+    NA
+  )
 })
