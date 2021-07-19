@@ -2,6 +2,8 @@
 
 - Added vignette "ref-model" which shows the reference model compartments and calculations.
 
+- Fixed incorrect input verification.
+
 # 0.1.0
 
 First release
