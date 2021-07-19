@@ -4,6 +4,8 @@
 
 - Fixed incorrect input verification.
 
+- Removed unused dependencies from the `Suggests` section.
+
 # 0.1.0
 
 First release
