@@ -49,6 +49,32 @@ test_that("method1 works", {
   })
 })
 
+test_that("method1 works with fixed ve", {
+  m1 <- method1(
+    attr(pop, "init_pop_size"),
+    pop_monthly$vaccinations, pop_monthly$infections, pop_monthly$ve[[1]]
+  )
+  with(m1, {
+    expect_equal(vaccinations, pop_monthly$vaccinations)
+    expect_equal(cases, pop_monthly$infections)
+    expect_equal(ve, pop_monthly$ve)
+    expect_equal(vc_lag, (pvac + lag(pvac, default = 0)) / 2)
+    expect_equal(
+      pops, as.integer(round(
+        (lag(pops, default = attr(pop, "init_pop_size")) -
+          lag(cases, default = 0L)) * (1 - vc_lag * ve)
+      ), 0)
+    )
+    expect_equal(pflu, cases / pops)
+    expect_equal(
+      popn, lag(popn, default = attr(pop, "init_pop_size")) -
+        lag(cases_novac, default = 0L)
+    )
+    expect_equal(cases_novac, as.integer(round(popn * pflu), 0))
+    expect_equal(avert, cases_novac - cases)
+  })
+})
+
 test_that("method3 works", {
   m3 <- method3(
     attr(pop, "init_pop_size"),

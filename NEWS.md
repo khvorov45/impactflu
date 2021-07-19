@@ -2,7 +2,7 @@
 
 - Added vignette "ref-model" which shows the reference model compartments and calculations.
 
-- Fixed incorrect input verification.
+- Correctly expand VE when passed as scalar.
 
 - Removed unused dependencies from the `Suggests` section.
 

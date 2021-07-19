@@ -76,13 +76,13 @@
 #' sum(m1$avert)
 #' sum(m3$avert)
 method1 <- function(init_pop_size, vaccinations, cases, ve) {
-  check_input_methods(init_pop_size, vaccinations, cases, ve)
+  ve <- check_input_methods(init_pop_size, vaccinations, cases, ve)
   as_tibble(method1_cpp(init_pop_size, vaccinations, cases, ve))
 }
 
 #' @rdname method1
 #' @export
 method3 <- function(init_pop_size, vaccinations, cases, ve) {
-  check_input_methods(init_pop_size, vaccinations, cases, ve)
+  ve <- check_input_methods(init_pop_size, vaccinations, cases, ve)
   as_tibble(method3_cpp(init_pop_size, vaccinations, cases, ve))
 }
